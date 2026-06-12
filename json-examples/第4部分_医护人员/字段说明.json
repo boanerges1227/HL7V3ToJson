@@ -1,0 +1,50 @@
+{
+  "partName": "第4部分：医疗卫生人员注册、查询服务",
+  "standardCode": "WS/T 846.4-2024",
+  "services": [
+    {
+      "serviceName": "医疗卫生人员注册服务",
+      "interactionId": "PRPM_IN301010UV01",
+      "description": "用于新医护人员信息的注册",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "PRPM_IN301010UV01", "description": "人员注册服务标识"},
+        {"path": "controlActProcess.subject.registrationRequest.person.id.item", "name": "人员工号", "type": "string", "required": true, "maxLength": 50, "oidRoot": "2.16.156.10011.1.4", "description": "医护人员唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.person.name", "name": "姓名", "type": "string", "required": true, "maxLength": 50, "dataElement": "DE02.01.039.00", "description": "医护人员姓名"},
+        {"path": "controlActProcess.subject.registrationRequest.person.gender", "name": "性别", "type": "string", "required": true, "enum": ["M-男", "F-女"], "description": "医护人员性别"},
+        {"path": "controlActProcess.subject.registrationRequest.person.birthTime", "name": "出生日期", "type": "date", "required": false, "format": "yyyyMMdd", "description": "医护人员出生日期"},
+        {"path": "controlActProcess.subject.registrationRequest.person.title", "name": "职称", "type": "string", "required": false, "enum": ["主任医师", "副主任医师", "主治医师", "住院医师", "护士长", "护士"], "description": "医护人员职称"},
+        {"path": "controlActProcess.subject.registrationRequest.person.dept.id.item", "name": "所属科室编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.26", "description": "医护人员所属科室"},
+        {"path": "controlActProcess.subject.registrationRequest.person.phone", "name": "联系电话", "type": "string", "required": false, "maxLength": 20, "description": "医护人员电话"}
+      ]
+    },
+    {
+      "serviceName": "医疗卫生人员更新服务",
+      "interactionId": "PRPM_IN303010UV01",
+      "description": "用于已注册人员信息的更新",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.updateRequest.person.id.item", "name": "人员工号", "type": "string", "required": true, "description": "要更新的人员工号"},
+        {"path": "controlActProcess.subject.updateRequest.person.*", "name": "人员信息", "type": "object", "required": false, "description": "需要更新的人员字段"}
+      ]
+    },
+    {
+      "serviceName": "医疗卫生人员查询服务",
+      "interactionId": "PRPM_IN306010UV01",
+      "description": "用于查询医护人员信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.personId", "name": "人员工号", "type": "string", "required": false, "description": "按工号查询"},
+        {"path": "controlActProcess.queryByParameter.personName", "name": "姓名", "type": "string", "required": false, "description": "按姓名查询"},
+        {"path": "controlActProcess.queryByParameter.deptId", "name": "科室编号", "type": "string", "required": false, "description": "按科室查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"},
+    {"oid": "2.16.156.10011.1.26", "name": "科室编码"}
+  ]
+}

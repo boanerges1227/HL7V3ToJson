@@ -1,0 +1,54 @@
+{
+  "partName": "第3部分：医疗卫生机构注册、查询服务",
+  "standardCode": "WS/T 846.3-2024",
+  "services": [
+    {
+      "serviceName": "医疗卫生机构注册服务",
+      "interactionId": "PRPM_IN401030UV01",
+      "description": "用于新医疗机构信息的注册",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "PRPM_IN401030UV01", "description": "机构注册服务标识"},
+        {"path": "controlActProcess.subject.registrationRequest.organization.id.item", "name": "机构编号", "type": "string", "required": true, "maxLength": 50, "oidRoot": "2.16.156.10011.1.5", "description": "医疗机构唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.organization.name", "name": "机构名称", "type": "string", "required": true, "maxLength": 100, "dataElement": "DE08.10.026.00", "description": "医疗机构名称"},
+        {"path": "controlActProcess.subject.registrationRequest.organization.type", "name": "机构类型", "type": "string", "required": true, "enum": ["医院", "社区卫生服务中心", "诊所"], "description": "医疗机构类型"},
+        {"path": "controlActProcess.subject.registrationRequest.organization.address", "name": "机构地址", "type": "string", "required": false, "maxLength": 200, "description": "医疗机构地址"},
+        {"path": "controlActProcess.subject.registrationRequest.organization.phone", "name": "联系电话", "type": "string", "required": false, "maxLength": 20, "description": "机构联系电话"},
+        {"path": "controlActProcess.subject.registrationRequest.department.id.item", "name": "科室编号", "type": "string", "required": true, "maxLength": 50, "oidRoot": "2.16.156.10011.1.26", "description": "科室唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.department.name", "name": "科室名称", "type": "string", "required": true, "maxLength": 50, "dataElement": "DE08.10.026.00", "description": "科室名称"},
+        {"path": "controlActProcess.subject.registrationRequest.department.type", "name": "科室类型", "type": "string", "required": true, "enum": ["内科", "外科", "妇产科", "儿科", "急诊科", "其他"], "description": "科室分类"}
+      ]
+    },
+    {
+      "serviceName": "医疗卫生机构更新服务",
+      "interactionId": "PRPM_IN403010UV01",
+      "description": "用于已注册机构信息的更新",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.updateRequest.organization.id.item", "name": "机构编号", "type": "string", "required": true, "description": "要更新的机构编号"},
+        {"path": "controlActProcess.subject.updateRequest.organization.*", "name": "机构信息", "type": "object", "required": false, "description": "需要更新的机构字段"}
+      ]
+    },
+    {
+      "serviceName": "医疗卫生机构查询服务",
+      "interactionId": "PRPM_IN406010UV01",
+      "description": "用于查询医疗机构信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.orgId", "name": "机构编号", "type": "string", "required": false, "description": "按机构编号查询"},
+        {"path": "controlActProcess.queryByParameter.orgName", "name": "机构名称", "type": "string", "required": false, "description": "按机构名称查询"},
+        {"path": "controlActProcess.queryByParameter.deptId", "name": "科室编号", "type": "string", "required": false, "description": "按科室编号查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.2", "name": "消息服务标识"},
+    {"oid": "2.16.156.10011.2.5.1.3", "name": "系统标识"},
+    {"oid": "2.16.156.10011.1.5", "name": "医院编码"},
+    {"oid": "2.16.156.10011.1.26", "name": "科室编码"},
+    {"oid": "2.16.156.10011.1.27", "name": "病区编码"}
+  ]
+}

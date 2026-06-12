@@ -1,0 +1,62 @@
+{
+  "partName": "第8部分：医嘱信息交互服务",
+  "standardCode": "WS/T 846.8-2024",
+  "services": [
+    {
+      "serviceName": "医嘱信息新增服务",
+      "interactionId": "POOR_IN200901UV",
+      "description": "用于医嘱信息的新增",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "POOR_IN200901UV", "description": "医嘱新增服务标识"},
+        {"path": "controlActProcess.subject.order.author.time", "name": "开立时间", "type": "datetime", "required": true, "dataElement": "DE08.50.033.00", "description": "医嘱开立时间"},
+        {"path": "controlActProcess.subject.order.author.signatureText", "name": "开立医师签名", "type": "string", "required": false, "dataElement": "DE02.01.039.00", "description": "医师电子签名"},
+        {"path": "controlActProcess.subject.order.author.assignedEntity.id.item", "name": "开立医师工号", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.4", "description": "开立医嘱的医师工号"},
+        {"path": "controlActProcess.subject.order.author.assignedEntity.organization.id.item", "name": "开立科室编码", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.26", "description": "开立科室"},
+        {"path": "controlActProcess.subject.order.components[].id.item", "name": "医嘱编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.28", "description": "医嘱唯一标识"},
+        {"path": "controlActProcess.subject.order.components[].code.displayName", "name": "医嘱类型", "type": "string", "required": true, "enum": ["药品类医嘱", "检查类医嘱", "检验类医嘱", "手术类医嘱", "治疗类医嘱"], "description": "医嘱项目类型"},
+        {"path": "controlActProcess.subject.order.components[].text", "name": "医嘱内容", "type": "string", "required": true, "dataElement": "DE06.00.288.00", "description": "医嘱详细内容"},
+        {"path": "controlActProcess.subject.order.components[].statusCode", "name": "医嘱状态", "type": "string", "required": true, "enum": ["active-有效", "completed-完成", "cancelled-取消"], "description": "医嘱当前状态"},
+        {"path": "controlActProcess.subject.order.components[].effectiveTime", "name": "有效期间", "type": "object", "required": false, "description": "医嘱开始/结束时间"},
+        {"path": "controlActProcess.subject.order.components[].routeCode", "name": "用药途径", "type": "string", "required": false, "dataElement": "DE06.00.134.00", "description": "药物使用途径"},
+        {"path": "controlActProcess.subject.order.components[].doseQuantity", "name": "次剂量", "type": "object", "required": false, "dataElement": "DE08.50.023.00", "description": "每次用药剂量"},
+        {"path": "controlActProcess.subject.order.components[].medication.name", "name": "药物名称", "type": "string", "required": false, "dataElement": "DE08.50.022.00", "description": "药物名称"},
+        {"path": "controlActProcess.subject.order.components[].location.id.item", "name": "执行科室", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.26", "description": "执行科室编码"},
+        {"path": "controlActProcess.subject.order.encounter.id.item", "name": "就诊流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.9", "description": "关联的就诊记录"},
+        {"path": "controlActProcess.subject.order.encounter.patientId.item", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "患者唯一标识"}
+      ]
+    },
+    {
+      "serviceName": "医嘱信息更新服务",
+      "interactionId": "POOR_IN200902UV",
+      "description": "用于医嘱信息的更新",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.order.components[].id.item", "name": "医嘱编号", "type": "string", "required": true, "description": "要更新的医嘱编号"},
+        {"path": "controlActProcess.subject.order.components[].statusCode", "name": "医嘱状态", "type": "string", "required": true, "description": "更新后的状态"}
+      ]
+    },
+    {
+      "serviceName": "医嘱信息查询服务",
+      "interactionId": "QUMT_IN020030UV01",
+      "description": "用于查询医嘱信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.actId", "name": "医嘱编号", "type": "string", "required": false, "description": "按医嘱编号查询"},
+        {"path": "controlActProcess.queryByParameter.patientId", "name": "患者编号", "type": "string", "required": false, "description": "按患者编号查询"},
+        {"path": "controlActProcess.queryByParameter.authorId", "name": "开立医师", "type": "string", "required": false, "description": "按开立医师查询"},
+        {"path": "controlActProcess.queryByParameter.effectiveTime", "name": "有效期间", "type": "object", "required": false, "description": "按时间范围查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.2.5.1.9", "name": "就诊流水号"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"},
+    {"oid": "2.16.156.10011.1.26", "name": "科室编码"},
+    {"oid": "2.16.156.10011.1.28", "name": "医嘱编码"}
+  ]
+}

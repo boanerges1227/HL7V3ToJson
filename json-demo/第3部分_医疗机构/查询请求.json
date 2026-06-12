@@ -1,0 +1,60 @@
+{
+  "PRPM_IN406010UV01": {
+    "messageHeader": {
+      "id": {
+        "root": "2.16.156.10011.2.5.1.1",
+        "extension": "8D73520B-D489-4B70-8F4B-7B5C2D7961BQ"
+      },
+      "creationTime": "20130116112855",
+      "interactionId": {
+        "root": "2.16.156.10011.2.5.1.2",
+        "extension": "PRPM_IN406010UV01"
+      },
+      "processingCode": "P",
+      "acceptAckCode": "AL",
+      "receiver": {
+        "device": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.3",
+              "extension": "@111"
+            }
+          }
+        }
+      },
+      "sender": {
+        "device": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.3",
+              "extension": "@222"
+            }
+          }
+        }
+      }
+    },
+    "controlActProcess": {
+      "queryByParameterPayload": {
+        "statusCode": "new",
+        "organizationID": {
+          "value": {
+            "root": "2.16.156.10011.1.26",
+            "extension": "123901"
+          }
+        },
+        "organizationName": {
+          "value": {
+            "part": {
+              "value": "呼吸内科"
+            }
+          }
+        },
+        "status": {
+          "value": {
+            "code": "active"
+          }
+        }
+      }
+    }
+  }
+}

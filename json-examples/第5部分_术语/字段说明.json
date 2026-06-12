@@ -1,0 +1,47 @@
+{
+  "partName": "第5部分：术语注册、查询服务",
+  "standardCode": "WS/T 846.5-2024",
+  "services": [
+    {
+      "serviceName": "术语注册服务",
+      "interactionId": "PRVS_IN000001UV01",
+      "description": "用于新术语信息的注册",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "PRVS_IN000001UV01", "description": "术语注册服务标识"},
+        {"path": "controlActProcess.subject.registrationRequest.terminology.id.item", "name": "术语编码", "type": "string", "required": true, "maxLength": 50, "description": "术语唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.terminology.name", "name": "术语名称", "type": "string", "required": true, "maxLength": 200, "description": "术语中文名称"},
+        {"path": "controlActProcess.subject.registrationRequest.terminology.codeSystem", "name": "术语体系", "type": "string", "required": true, "enum": ["ICD-10", "ICD-9-CM", "SNOMED-CT", "LOINC", "其他"], "description": "术语所属编码体系"},
+        {"path": "controlActProcess.subject.registrationRequest.terminology.version", "name": "版本号", "type": "string", "required": false, "maxLength": 20, "description": "术语版本"},
+        {"path": "controlActProcess.subject.registrationRequest.terminology.status", "name": "状态", "type": "string", "required": true, "enum": ["active-有效", "inactive-无效", "deprecated-已弃用"], "description": "术语状态"}
+      ]
+    },
+    {
+      "serviceName": "术语更新服务",
+      "interactionId": "PRVS_IN000002UV01",
+      "description": "用于已注册术语信息的更新",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.updateRequest.terminology.id.item", "name": "术语编码", "type": "string", "required": true, "description": "要更新的术语编码"},
+        {"path": "controlActProcess.subject.updateRequest.terminology.*", "name": "术语信息", "type": "object", "required": false, "description": "需要更新的术语字段"}
+      ]
+    },
+    {
+      "serviceName": "术语查询服务",
+      "interactionId": "PRVS_IN000003UV01",
+      "description": "用于查询术语信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.termId", "name": "术语编码", "type": "string", "required": false, "description": "按术语编码查询"},
+        {"path": "controlActProcess.queryByParameter.termName", "name": "术语名称", "type": "string", "required": false, "description": "按术语名称查询"},
+        {"path": "controlActProcess.queryByParameter.codeSystem", "name": "术语体系", "type": "string", "required": false, "description": "按编码体系查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.2", "name": "消息服务标识"}
+  ]
+}

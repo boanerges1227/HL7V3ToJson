@@ -1,0 +1,210 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00047"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "RCMR_IN000032UV01"
+    },
+    "processingCode": "P",
+    "processingModeCode": "T",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "typeCode": "RCV",
+      "device": {
+        "classCode": "DEV",
+        "determinerCode": "INSTANCE",
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "typeCode": "SND",
+      "device": {
+        "classCode": "DEV",
+        "determinerCode": "INSTANCE",
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-EMR-001"
+          }
+        }
+      }
+    }
+  },
+  "acknowledgement": {
+    "typeCode": "AA",
+    "targetMessage": {
+      "id": {
+        "root": "2.16.156.10011.2.5.1.1",
+        "extension": "MSG-20241010-00046"
+      }
+    },
+    "acknowledgementDetail": {
+      "text": "文档查询成功"
+    }
+  },
+  "controlActProcess": {
+    "classCode": "CACT",
+    "moodCode": "EVN",
+    "subject": {
+      "typeCode": "SUBJ",
+      "clinicalDocument": {
+        "classCode": "DOC",
+        "moodCode": "EVN",
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.4",
+            "extension": "DOC-20241010-00001"
+          }
+        },
+        "code": {
+          "codeSystem": "2.16.156.10011.2.3.3.12",
+          "codeSystemName": "文档类型代码表",
+          "displayName": "入院记录"
+        },
+        "statusCode": "completed",
+        "effectiveTime": "20241010100000",
+        "confidentialityCode": {
+          "codeSystem": "2.16.156.10011.2.3.3.15",
+          "codeSystemName": "保密级别代码表",
+          "displayName": "正常"
+        },
+        "versionNumber": "1",
+        "storageCode": {
+          "originalText": "入院记录.pdf",
+          "translation": "DOC-20241010-00001.pdf"
+        },
+        "recordTarget": {
+          "typeCode": "RCT",
+          "patient": {
+            "classCode": "PAT",
+            "id": {
+              "item": [
+                {
+                  "root": "2.16.156.10011.1.3",
+                  "extension": "110101199001011234"
+                },
+                {
+                  "root": "2.16.156.10011.2.5.1.4",
+                  "extension": "CARD-20241010-00001"
+                },
+                {
+                  "root": "2.16.156.10011.2.5.1.4",
+                  "extension": "ENC-20241010-00001"
+                }
+              ]
+            },
+            "statusCode": "active",
+            "effectiveTime": {
+              "low": "19900101",
+              "high": "20241010"
+            },
+            "patientPerson": {
+              "classCode": "PSN",
+              "determinerCode": "INSTANCE",
+              "id": {
+                "item": {
+                  "root": "2.16.156.10011.1.3",
+                  "extension": "110101199001011234"
+                }
+              },
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "张三"
+                  }
+                }
+              }
+            },
+            "providerOrganization": {
+              "classCode": "ORG",
+              "determinerCode": "INSTANCE",
+              "id": {
+                "item": {
+                  "root": "2.16.156.10011.1.5",
+                  "extension": "HOSP-001"
+                }
+              },
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "北京协和医院"
+                  }
+                }
+              },
+              "organizationContains": {
+                "classCode": "ORG",
+                "id": {
+                  "item": {
+                    "root": "2.16.156.10011.1.26",
+                    "extension": "DEPT-001"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "author": {
+          "typeCode": "AUT",
+          "time": "20241010100000",
+          "assignedAuthor": {
+            "classCode": "ASSIGNED",
+            "id": {
+              "item": {
+                "root": "2.16.156.10011.1.4",
+                "extension": "DOC001"
+              }
+            },
+            "assignedPerson": {
+              "classCode": "PSN",
+              "determinerCode": "INSTANCE",
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "王医生"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "custodian": {
+          "typeCode": "CST",
+          "assignedCustodian": {
+            "classCode": "ASSIGNED",
+            "representedOrganization": {
+              "classCode": "ORG",
+              "determinerCode": "INSTANCE",
+              "id": {
+                "item": {
+                  "root": "2.16.156.10011.1.5",
+                  "extension": "HOSP-001"
+                }
+              },
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "北京协和医院"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "queryAck": {
+      "queryId": "QUERY-20241010-00010",
+      "queryResponseCode": "OK",
+      "resultTotalQuantity": "1"
+    }
+  }
+}

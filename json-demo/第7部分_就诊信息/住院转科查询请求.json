@@ -1,0 +1,71 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00017"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "PRPA_IN900300UV"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-ADM-001"
+          }
+        }
+      }
+    }
+  },
+  "query": {
+    "queryByParameter": {
+      "parameterList": {
+        "patientId": {
+          "value": {
+            "item": {
+              "root": "2.16.156.10011.1.3",
+              "extension": "110101199001011234"
+            }
+          }
+        },
+        "encounterId": {
+          "value": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.4",
+              "extension": "ENC-20241010-00001"
+            }
+          }
+        },
+        "transferId": {
+          "value": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.4",
+              "extension": "TRF-20241010-00001"
+            }
+          }
+        },
+        "transferTime": {
+          "value": {
+            "low": "20241001000000",
+            "high": "20241031235959"
+          }
+        }
+      }
+    }
+  }
+}

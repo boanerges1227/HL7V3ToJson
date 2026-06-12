@@ -1,0 +1,87 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00013"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "PRPA_IN400002UV"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-ADM-001"
+          }
+        }
+      }
+    }
+  },
+  "discharge": {
+    "id": {
+      "item": {
+        "root": "2.16.156.10011.2.5.1.4",
+        "extension": "DCG-20241010-00001"
+      }
+    },
+    "statusCode": "active",
+    "effectiveTime": "20241010153045",
+    "encounter": {
+      "id": {
+        "item": {
+          "root": "2.16.156.10011.2.5.1.4",
+          "extension": "ENC-20241010-00001"
+        }
+      }
+    },
+    "patient": {
+      "id": {
+        "item": {
+          "root": "2.16.156.10011.1.3",
+          "extension": "110101199001011234"
+        }
+      },
+      "name": "张三"
+    },
+    "dischargeDepartment": {
+      "id": {
+        "item": {
+          "root": "2.16.156.10011.1.26",
+          "extension": "DEPT-001"
+        }
+      },
+      "name": "心内科"
+    },
+    "dischargeDiagnosis": {
+      "code": "I25.101",
+      "displayName": "冠状动脉粥样硬化性心脏病",
+      "isPrincipal": true
+    },
+    "dischargingDoctor": {
+      "id": {
+        "item": {
+          "root": "2.16.156.10011.1.4",
+          "extension": "DOC001"
+        }
+      },
+      "name": "王医生"
+    },
+    "dischargeDisposition": "治愈",
+    "hospitalDays": "7"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "MCCI_IN000002UV01": {
+    "messageHeader": {
+      "id": {
+        "root": "2.16.156.10011.2.5.1.1",
+        "extension": "4D73520B-D489-4B70-8F4B-7B5C2D7961B5"
+      },
+      "creationTime": "20170106151903",
+      "interactionId": {
+        "root": "2.16.156.10011.2.5.1.2",
+        "extension": "MCCI_IN000002UV01"
+      },
+      "processingCode": "P",
+      "acceptAckCode": "AL",
+      "receiver": {
+        "device": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.3",
+              "extension": "@111"
+            }
+          }
+        }
+      },
+      "sender": {
+        "device": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.2.5.1.3",
+              "extension": "@222"
+            }
+          }
+        }
+      }
+    },
+    "acknowledgement": {
+      "typeCode": "AA",
+      "targetMessage": {
+        "id": {
+          "root": "2.16.156.10011.2.5.1.1",
+          "extension": "8D73520B-D489-4B70-8F4B-7B5C2D7961B5"
+        }
+      },
+      "acknowledgementDetail": {
+        "text": {
+          "value": "处理结果说明"
+        }
+      }
+    }
+  }
+}

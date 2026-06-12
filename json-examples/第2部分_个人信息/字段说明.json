@@ -1,0 +1,67 @@
+{
+  "partName": "第2部分：个人信息注册、查询服务",
+  "standardCode": "WS/T 846.2-2024",
+  "services": [
+    {
+      "serviceName": "个人信息注册服务",
+      "interactionId": "PRPA_IN201311UV02",
+      "description": "用于新患者个人信息的注册",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "maxLength": 50, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值，标识ID类型为消息流水号"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "dataElement": "-", "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "PRPA_IN201311UV02", "description": "标识本消息对应的服务接口"},
+        {"path": "messageHeader.processingCode", "name": "处理代码", "type": "string", "required": true, "enum": ["D-调试", "P-产品", "T-训练"], "description": "标识系统环境"},
+        {"path": "messageHeader.acceptAckCode", "name": "应答控制码", "type": "string", "required": true, "enum": ["AL-总是", "ER-仅错误", "NE-从不"], "description": "控制接收方是否返回应答"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.id.item", "name": "患者编号", "type": "string", "required": true, "maxLength": 50, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "患者唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.idCard", "name": "身份证件号码", "type": "string", "required": false, "maxLength": 18, "oidRoot": "2.16.156.10011.1.3", "description": "患者身份证号码"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.name", "name": "患者姓名", "type": "string", "required": true, "maxLength": 50, "dataElement": "DE02.01.039.01", "description": "患者真实姓名"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.gender", "name": "性别", "type": "string", "required": true, "enum": ["M-男", "F-女", "U-未知"], "oidRoot": "2.16.156.10011.2.3.3.4", "description": "患者生理性别"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.birthTime", "name": "出生日期", "type": "date", "required": true, "format": "yyyyMMdd", "dataElement": "DE02.01.005.00", "description": "患者出生日期"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.phone", "name": "联系电话", "type": "string", "required": false, "maxLength": 20, "dataElement": "DE02.01.010.05", "description": "患者电话号码"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.address", "name": "联系地址", "type": "string", "required": false, "maxLength": 200, "description": "患者居住地址"},
+        {"path": "controlActProcess.subject.registrationRequest.patient.healthCardNo", "name": "居民健康卡号", "type": "string", "required": false, "maxLength": 50, "oidRoot": "2.16.156.10011.1.19", "description": "居民健康卡编号"}
+      ]
+    },
+    {
+      "serviceName": "个人信息更新服务",
+      "interactionId": "PRPA_IN201314UV02",
+      "description": "用于已注册患者个人信息的更新",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "同注册服务消息头"},
+        {"path": "controlActProcess.subject.updateRequest.patient.id.item", "name": "患者编号", "type": "string", "required": true, "description": "要更新的患者编号"},
+        {"path": "controlActProcess.subject.updateRequest.patient.*", "name": "患者信息", "type": "object", "required": false, "description": "需要更新的患者字段"}
+      ]
+    },
+    {
+      "serviceName": "个人信息查询服务",
+      "interactionId": "PRPA_IN201305UV02",
+      "description": "用于查询患者个人信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.patientId", "name": "患者编号", "type": "string", "required": false, "description": "按患者编号查询"},
+        {"path": "controlActProcess.queryByParameter.idCard", "name": "身份证号码", "type": "string", "required": false, "description": "按身份证号查询"},
+        {"path": "controlActProcess.queryByParameter.name", "name": "患者姓名", "type": "string", "required": false, "description": "按姓名查询"}
+      ]
+    },
+    {
+      "serviceName": "个人信息合并服务",
+      "interactionId": "PRPA_IN201304UV02",
+      "description": "用于合并重复的患者记录",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.mergeRequest.sourcePatient", "name": "源患者", "type": "object", "required": true, "description": "要合并的源患者记录"},
+        {"path": "controlActProcess.subject.mergeRequest.targetPatient", "name": "目标患者", "type": "object", "required": true, "description": "合并目标患者记录"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.2", "name": "消息服务标识"},
+    {"oid": "2.16.156.10011.2.5.1.3", "name": "系统标识"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.1.3", "name": "身份证件号码"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"},
+    {"oid": "2.16.156.10011.1.19", "name": "居民健康卡号"}
+  ]
+}

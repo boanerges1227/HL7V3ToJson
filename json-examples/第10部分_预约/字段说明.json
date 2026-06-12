@@ -1,0 +1,60 @@
+{
+  "partName": "第10部分：预约信息交互服务",
+  "standardCode": "WS/T 846.10-2024",
+  "services": [
+    {
+      "serviceName": "预约申请服务",
+      "interactionId": "POOR_IN200910UV",
+      "description": "用于预约挂号申请",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "POOR_IN200910UV", "description": "预约申请服务标识"},
+        {"path": "controlActProcess.subject.appointment.id.item", "name": "预约流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.29", "description": "预约唯一标识"},
+        {"path": "controlActProcess.subject.appointment.patientId.item", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "预约患者"},
+        {"path": "controlActProcess.subject.appointment.patientName", "name": "患者姓名", "type": "string", "required": true, "dataElement": "DE02.01.039.01", "description": "患者姓名"},
+        {"path": "controlActProcess.subject.appointment.deptId", "name": "预约科室", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.26", "description": "预约科室编码"},
+        {"path": "controlActProcess.subject.appointment.deptName", "name": "科室名称", "type": "string", "required": true, "dataElement": "DE08.10.026.00", "description": "预约科室名称"},
+        {"path": "controlActProcess.subject.appointment.doctorId", "name": "预约医生", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.4", "description": "指定医生工号"},
+        {"path": "controlActProcess.subject.appointment.doctorName", "name": "医生姓名", "type": "string", "required": false, "description": "指定医生姓名"},
+        {"path": "controlActProcess.subject.appointment.appointmentDate", "name": "预约日期", "type": "date", "required": true, "format": "yyyyMMdd", "description": "预约就诊日期"},
+        {"path": "controlActProcess.subject.appointment.appointmentTime", "name": "预约时段", "type": "string", "required": true, "enum": ["上午", "下午", "晚间"], "description": "预约时段"},
+        {"path": "controlActProcess.subject.appointment.visitType", "name": "就诊类型", "type": "string", "required": true, "enum": ["普通门诊", "专家门诊", "特需门诊"], "description": "门诊类型"},
+        {"path": "controlActProcess.subject.appointment.contactPhone", "name": "联系电话", "type": "string", "required": true, "dataElement": "DE02.01.010.05", "description": "患者联系电话"},
+        {"path": "controlActProcess.subject.appointment.createTime", "name": "预约时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "预约操作时间"}
+      ]
+    },
+    {
+      "serviceName": "预约取消服务",
+      "interactionId": "POOR_IN200911UV",
+      "description": "用于取消已预约的挂号",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.cancelRequest.appointmentId.item", "name": "预约流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.29", "description": "要取消的预约编号"},
+        {"path": "controlActProcess.subject.cancelRequest.cancelReason", "name": "取消原因", "type": "string", "required": false, "maxLength": 200, "description": "取消预约的原因"},
+        {"path": "controlActProcess.subject.cancelRequest.cancelTime", "name": "取消时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "取消操作时间"}
+      ]
+    },
+    {
+      "serviceName": "预约查询服务",
+      "interactionId": "QUMT_IN020050UV01",
+      "description": "用于查询预约信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.appointmentId", "name": "预约流水号", "type": "string", "required": false, "description": "按预约编号查询"},
+        {"path": "controlActProcess.queryByParameter.patientId", "name": "患者编号", "type": "string", "required": false, "description": "按患者编号查询"},
+        {"path": "controlActProcess.queryByParameter.deptId", "name": "科室编号", "type": "string", "required": false, "description": "按科室编号查询"},
+        {"path": "controlActProcess.queryByParameter.appointmentDate", "name": "预约日期", "type": "date", "required": false, "description": "按预约日期查询"},
+        {"path": "controlActProcess.queryByParameter.status", "name": "预约状态", "type": "string", "required": false, "enum": ["active-已预约", "completed-已就诊", "cancelled-已取消"], "description": "按预约状态查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.2.5.1.29", "name": "预约流水号"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"},
+    {"oid": "2.16.156.10011.1.26", "name": "科室编码"}
+  ]
+}

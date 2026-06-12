@@ -1,0 +1,316 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "医嘱信息交互消息 JSON Schema",
+  "description": "基于 WS/T 846.8-2024 医院信息平台交互标准 第8部分：医嘱信息交互服务",
+  "type": "object",
+  "properties": {
+    "messageHeader": {
+      "type": "object",
+      "description": "消息头信息",
+      "properties": {
+        "id": {
+          "type": "object",
+          "description": "消息流水号",
+          "properties": {
+            "root": { "type": "string", "const": "2.16.156.10011.2.5.1.1" },
+            "extension": { "type": "string", "description": "消息唯一标识" }
+          },
+          "required": ["root", "extension"]
+        },
+        "creationTime": {
+          "type": "string",
+          "description": "消息创建时间，格式：yyyyMMddHHmmss",
+          "pattern": "^\\d{14}$"
+        },
+        "interactionId": {
+          "type": "object",
+          "description": "消息服务标识",
+          "properties": {
+            "root": { "type": "string", "const": "2.16.156.10011.2.5.1.2" },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "POOR_IN200901UV",
+                "POOR_IN200902UV",
+                "QUMT_IN020030UV01",
+                "QUMT_IN020040UV01",
+                "MCCI_IN000002UV01"
+              ],
+              "description": "服务标识代码"
+            }
+          },
+          "required": ["root", "extension"]
+        },
+        "processingCode": {
+          "type": "string",
+          "enum": ["D", "P", "T"],
+          "description": "处理代码：D-调试，P-产品，T-训练"
+        },
+        "acceptAckCode": {
+          "type": "string",
+          "enum": ["AL", "ER", "NE"],
+          "description": "消息应答：AL-总是，ER-仅错误，NE-从不"
+        },
+        "receiver": {
+          "type": "object",
+          "description": "接收者信息",
+          "properties": {
+            "device": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "object",
+                  "properties": {
+                    "root": { "type": "string" },
+                    "extension": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sender": {
+          "type": "object",
+          "description": "发送者信息",
+          "properties": {
+            "device": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "object",
+                  "properties": {
+                    "root": { "type": "string" },
+                    "extension": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["id", "creationTime", "interactionId", "receiver", "sender"]
+    },
+    "acknowledgement": {
+      "type": "object",
+      "description": "应答信息（仅应答消息包含）",
+      "properties": {
+        "typeCode": {
+          "type": "string",
+          "enum": ["AA", "AE", "AR"],
+          "description": "应答类型：AA-接受成功，AE-接受失败，AR-拒绝"
+        },
+        "targetMessage": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "object",
+              "properties": {
+                "root": { "type": "string" },
+                "extension": { "type": "string", "description": "被应答的消息流水号" }
+              }
+            }
+          }
+        },
+        "detail": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string", "description": "处理结果说明" }
+          }
+        }
+      }
+    },
+    "order": {
+      "type": "object",
+      "description": "医嘱信息（仅医嘱消息包含）",
+      "properties": {
+        "author": {
+          "type": "object",
+          "description": "医嘱开立信息",
+          "properties": {
+            "time": { "type": "string", "description": "开立时间" },
+            "signatureCode": { "type": "string", "const": "S" },
+            "signatureText": { "type": "string", "description": "医师签名" },
+            "assignedEntity": {
+              "type": "object",
+              "properties": {
+                "id": { "$ref": "#/definitions/identifier" },
+                "person": { "$ref": "#/definitions/person" },
+                "organization": { "$ref": "#/definitions/organization" }
+              }
+            }
+          }
+        },
+        "verifier": {
+          "type": "object",
+          "description": "医嘱审核信息"
+        },
+        "components": {
+          "type": "array",
+          "description": "医嘱项目列表",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sequenceNumber": { "type": "string" },
+              "substanceAdministration": { "$ref": "#/definitions/substanceAdministration" }
+            }
+          }
+        },
+        "encounter": { "$ref": "#/definitions/encounter" }
+      }
+    },
+    "query": {
+      "type": "object",
+      "description": "查询请求信息"
+    },
+    "queryResponse": {
+      "type": "object",
+      "description": "查询应答信息"
+    }
+  },
+  "definitions": {
+    "identifier": {
+      "type": "object",
+      "properties": {
+        "root": { "type": "string", "description": "OID标识" },
+        "extension": { "type": "string", "description": "扩展值" }
+      }
+    },
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "array", "items": { "type": "string" } },
+        "gender": { "type": "string" },
+        "birthTime": { "type": "string" }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "name": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "substanceAdministration": {
+      "type": "object",
+      "description": "药品医嘱信息",
+      "properties": {
+        "id": { "$ref": "#/definitions/identifier" },
+        "code": {
+          "type": "object",
+          "properties": {
+            "displayName": { "type": "string" }
+          }
+        },
+        "text": { "type": "string" },
+        "statusCode": { "type": "string" },
+        "effectiveTime": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "string", "description": "执行频率" },
+            "low": { "type": "string" },
+            "high": { "type": "string" }
+          }
+        },
+        "routeCode": {
+          "type": "object",
+          "properties": { "displayName": { "type": "string" } }
+        },
+        "doseQuantity": {
+          "type": "object",
+          "properties": {
+            "value": { "type": "string" },
+            "unit": { "type": "string" }
+          }
+        },
+        "medication": {
+          "type": "object",
+          "properties": {
+            "id": { "$ref": "#/definitions/identifier" },
+            "code": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string" },
+                "codeSystem": { "type": "string" }
+              }
+            },
+            "name": { "type": "array", "items": { "type": "string" } },
+            "specification": {
+              "type": "object",
+              "properties": {
+                "value": { "type": "string" },
+                "unit": { "type": "string" }
+              }
+            },
+            "insuranceCategory": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string" },
+                "displayName": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "encounter": {
+      "type": "object",
+      "description": "就诊信息",
+      "properties": {
+        "visitNumber": { "$ref": "#/definitions/identifier" },
+        "encounterId": { "$ref": "#/definitions/identifier" },
+        "patientType": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "string" },
+            "displayName": { "type": "string" }
+          }
+        },
+        "statusCode": { "type": "string" },
+        "patient": { "$ref": "#/definitions/patient" },
+        "location": { "$ref": "#/definitions/location" }
+      }
+    },
+    "patient": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "array", "items": { "$ref": "#/definitions/identifier" } },
+        "telecom": { "type": "array", "items": { "type": "string" } },
+        "statusCode": { "type": "string" },
+        "person": { "$ref": "#/definitions/person" }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "bed": {
+          "type": "object",
+          "properties": {
+            "id": { "$ref": "#/definitions/identifier" },
+            "name": { "type": "array", "items": { "type": "string" } },
+            "ward": {
+              "type": "object",
+              "properties": {
+                "id": { "$ref": "#/definitions/identifier" },
+                "name": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "department": {
+          "type": "object",
+          "properties": {
+            "id": { "$ref": "#/definitions/identifier" },
+            "name": { "type": "array", "items": { "type": "string" } },
+            "wardArea": {
+              "type": "object",
+              "properties": {
+                "id": { "$ref": "#/definitions/identifier" },
+                "name": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

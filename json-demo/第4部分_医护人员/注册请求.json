@@ -1,0 +1,151 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00005"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "PRPM_IN301010UV01"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HR-001"
+          }
+        }
+      }
+    }
+  },
+  "controlActProcess": {
+    "subject": {
+      "registrationRequest": {
+        "statusCode": "active",
+        "subject1": {
+          "healthCareProvider": {
+            "id": {
+              "item": {
+                "root": "2.16.156.10011.1.4",
+                "extension": "DOC001"
+              }
+            },
+            "code": {
+              "code": "200",
+              "codeSystem": "2.16.156.10011.2.3.1.11",
+              "codeSystemName": "卫生技术人员代码表",
+              "displayName": "临床医师"
+            },
+            "statusCode": "active",
+            "effectiveTime": {
+              "low": "20100101",
+              "high": "20501231"
+            },
+            "healthCarePrincipalPerson": {
+              "id": {
+                "item": {
+                  "root": "2.16.156.10011.1.3",
+                  "extension": "110101198501011234"
+                }
+              },
+              "idCategory": {
+                "code": "01",
+                "displayName": "居民身份证"
+              },
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "王医生"
+                  }
+                }
+              },
+              "administrativeGenderCode": {
+                "code": "1",
+                "codeSystem": "2.16.156.10011.2.3.3.4",
+                "codeSystemName": "生理性别代码表(GB/T2261.1)",
+                "displayName": "男性"
+              },
+              "birthTime": "19850101",
+              "asAffiliate": {
+                "affiliatedPrincipalOrganization": {
+                  "id": {
+                    "item": {
+                      "root": "2.16.156.10011.1.5",
+                      "extension": "HOSP-001"
+                    }
+                  },
+                  "name": {
+                    "item": {
+                      "part": {
+                        "value": "北京协和医院"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "author": {
+          "assignedEntity": {
+            "id": {
+              "item": {
+                "root": "2.16.156.10011.1.4",
+                "extension": "HR001"
+              }
+            },
+            "assignedPerson": {
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "李人事"
+                  }
+                }
+              }
+            },
+            "representedOrganization": {
+              "id": {
+                "item": {
+                  "root": "2.16.156.10011.1.5",
+                  "extension": "HOSP-001"
+                }
+              },
+              "name": {
+                "item": {
+                  "part": {
+                    "value": "人事科"
+                  }
+                }
+              },
+              "contactParty": {
+                "contactPerson": {
+                  "name": {
+                    "item": {
+                      "part": {
+                        "value": "王联系"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

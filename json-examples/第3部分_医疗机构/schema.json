@@ -1,0 +1,75 @@
+{
+  "_description": "医院信息平台交互标准第3部分：医疗卫生机构注册、查询服务 - JSON Schema",
+  "_standard": "WS/T846.3-2024",
+  "_services": {
+    "PRPM_IN401030UV01": "医疗卫生机构（科室）信息注册服务请求",
+    "PRPM_IN403010UV01": "医疗卫生机构（科室）信息更新服务请求",
+    "PRPM_IN406010UV01": "医疗卫生机构（科室）信息查询服务请求",
+    "PRPM_IN406110UV01": "医疗卫生机构（科室）信息查询服务应答",
+    "MCCI_IN000002UV01": "通用应答消息"
+  },
+  "_fixedValues": {
+    "id.root": "2.16.156.10011.2.5.1.1",
+    "interactionId.root": "2.16.156.10011.2.5.1.2",
+    "device.id.item.root": "2.16.156.10011.2.5.1.3",
+    "assignedEntity.id.item.root（科室号）": "2.16.156.10011.1.26",
+    "assignedEntity.code.codeSystem（科室分类）": "2.16.156.10011.2.3.2.62",
+    "author.assignedEntity.id.item.root（医护人员工号）": "2.16.156.10011.1.4"
+  },
+  "_messages": [
+    {
+      "interactionId": "PRPM_IN401030UV01",
+      "name": "医疗卫生机构（科室）信息注册服务请求",
+      "structure": "messageHeader + controlActProcess/subject/registrationRequest",
+      "keyNodes": [
+        "assignedEntity/id - 科室号",
+        "assignedEntity/code - 科室代码",
+        "assignedEntity/name - 科室名称",
+        "assignedEntity/addr - 地址",
+        "assignedEntity/telecom - 联系电话",
+        "assignedEntity/effectiveTime - 有效期间",
+        "assignedEntity/assignedPrincipalOrganization - 上级科室",
+        "author/assignedEntity - 申请者信息"
+      ]
+    },
+    {
+      "interactionId": "PRPM_IN403010UV01",
+      "name": "医疗卫生机构（科室）信息更新服务请求",
+      "structure": "messageHeader + controlActProcess/subject/registrationRequest",
+      "keyNodes": [
+        "与注册请求结构相同"
+      ]
+    },
+    {
+      "interactionId": "PRPM_IN406010UV01",
+      "name": "医疗卫生机构（科室）信息查询服务请求",
+      "structure": "messageHeader + controlActProcess/queryByParameterPayload",
+      "keyNodes": [
+        "queryByParameterPayload/organizationID - 科室号查询条件",
+        "queryByParameterPayload/organizationName - 科室名称查询条件",
+        "queryByParameterPayload/status - 状态查询条件"
+      ]
+    },
+    {
+      "interactionId": "PRPM_IN406110UV01",
+      "name": "医疗卫生机构（科室）信息查询服务应答",
+      "structure": "messageHeader + acknowledgement + controlActProcess/subject/registrationEvent",
+      "keyNodes": [
+        "acknowledgement - 应答信息",
+        "controlActProcess/subject/registrationEvent/subject1 - 科室信息",
+        "controlActProcess/subject/registrationEvent/custodian - 注册责任者",
+        "controlActProcess/queryAck - 查询应答码"
+      ]
+    },
+    {
+      "interactionId": "MCCI_IN000002UV01",
+      "name": "通用应答消息",
+      "structure": "messageHeader + acknowledgement",
+      "keyNodes": [
+        "acknowledgement/typeCode - AA成功/AE失败/AR拒绝",
+        "acknowledgement/targetMessage/id - 原请求流水号",
+        "acknowledgement/acknowledgementDetail/text - 处理结果说明"
+      ]
+    }
+  ]
+}

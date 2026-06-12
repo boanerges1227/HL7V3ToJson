@@ -1,0 +1,41 @@
+{
+  "partName": "第6部分：文档注册、查询服务",
+  "standardCode": "WS/T 846.6-2024",
+  "services": [
+    {
+      "serviceName": "文档注册服务",
+      "interactionId": "RCMR_IN000002UV02",
+      "description": "用于医疗文档的注册",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "RCMR_IN000002UV02", "description": "文档注册服务标识"},
+        {"path": "controlActProcess.subject.registrationRequest.document.id.item", "name": "文档编号", "type": "string", "required": true, "maxLength": 50, "description": "医疗文档唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.document.title", "name": "文档标题", "type": "string", "required": true, "maxLength": 200, "description": "文档标题"},
+        {"path": "controlActProcess.subject.registrationRequest.document.type", "name": "文档类型", "type": "string", "required": true, "enum": ["入院记录", "病程记录", "手术记录", "出院记录", "检查报告", "检验报告"], "description": "文档类型"},
+        {"path": "controlActProcess.subject.registrationRequest.document.patientId", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "文档所属患者"},
+        {"path": "controlActProcess.subject.registrationRequest.document.authorId", "name": "作者工号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.4", "description": "文档创建者"},
+        {"path": "controlActProcess.subject.registrationRequest.document.createTime", "name": "创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "文档创建时间"},
+        {"path": "controlActProcess.subject.registrationRequest.document.content", "name": "文档内容", "type": "string", "required": false, "description": "文档正文内容"}
+      ]
+    },
+    {
+      "serviceName": "文档查询服务",
+      "interactionId": "RCMR_IN000031UV01",
+      "description": "用于查询医疗文档信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.docId", "name": "文档编号", "type": "string", "required": false, "description": "按文档编号查询"},
+        {"path": "controlActProcess.queryByParameter.patientId", "name": "患者编号", "type": "string", "required": false, "description": "按患者编号查询"},
+        {"path": "controlActProcess.queryByParameter.docType", "name": "文档类型", "type": "string", "required": false, "description": "按文档类型查询"},
+        {"path": "controlActProcess.queryByParameter.createTimeRange", "name": "创建时间范围", "type": "object", "required": false, "description": "按时间范围查询"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"}
+  ]
+}

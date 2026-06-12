@@ -1,0 +1,136 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00028"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "PRPA_IN201311UV02"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-CARD-001"
+          }
+        }
+      }
+    }
+  },
+  "encounterCard": {
+    "patient": {
+      "id": {
+        "item": {
+          "root": "2.16.156.10011.1.3",
+          "extension": "110101199001011234"
+        }
+      },
+      "statusCode": "active",
+      "effectiveTime": {
+        "low": "20241010083000"
+      },
+      "patientPerson": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.1.3",
+            "extension": "110101199001011234"
+          }
+        },
+        "name": {
+          "item": {
+            "part": {
+              "value": "张三"
+            }
+          }
+        },
+        "telecom": {
+          "item": {
+            "value": "13800138000"
+          }
+        },
+        "administrativeGenderCode": {
+          "codeSystem": "2.16.156.10011.2.3.3.4",
+          "codeSystemName": "生理性别代码表(GB/T2261.1)",
+          "code": "1",
+          "displayName": "男性"
+        },
+        "birthTime": "19900101",
+        "addr": {
+          "item": {
+            "part": [
+              {
+                "type": "SAL",
+                "value": "北京市东城区东交民巷1号"
+              },
+              {
+                "type": "STA",
+                "value": "北京市"
+              },
+              {
+                "type": "CTY",
+                "value": "北京市"
+              },
+              {
+                "type": "CNT",
+                "value": "东城区"
+              },
+              {
+                "type": "STB",
+                "value": "东交民巷"
+              },
+              {
+                "type": "STR",
+                "value": "东交民巷"
+              },
+              {
+                "type": "BNR",
+                "value": "1号"
+              },
+              {
+                "type": "ZIP",
+                "value": "100006"
+              }
+            ]
+          }
+        },
+        "maritalStatusCode": {
+          "codeSystem": "2.16.156.10011.2.3.3.5",
+          "codeSystemName": "婚姻状况代码表(GB/T2261.2)",
+          "code": "10",
+          "displayName": "未婚"
+        },
+        "ethnicGroupCode": {
+          "item": {
+            "codeSystem": "2.16.156.10011.2.3.3.3",
+            "codeSystemName": "民族类别代码表(GB3304)",
+            "code": "01",
+            "displayName": "汉族"
+          }
+        },
+        "asEmployee": {
+          "occupationCode": {
+            "codeSystem": "2.16.156.10011.2.3.3.7",
+            "codeSystemName": "从业状况(个人身体)代码表(GB/T2261.4)",
+            "code": "13",
+            "displayName": "专业技术人员"
+          }
+        }
+      }
+    }
+  }
+}

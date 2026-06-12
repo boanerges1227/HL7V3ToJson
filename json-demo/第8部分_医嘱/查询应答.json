@@ -1,0 +1,188 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00033"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "QUMT_IN020040UV01"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-EMR-001"
+          }
+        }
+      }
+    }
+  },
+  "acknowledgement": {
+    "typeCode": "AA",
+    "targetMessage": {
+      "id": {
+        "root": "2.16.156.10011.2.5.1.1",
+        "extension": "MSG-20241010-00034"
+      }
+    },
+    "detail": {
+      "text": "医嘱查询成功"
+    }
+  },
+  "queryResponse": {
+    "queryId": "QUERY-20241010-00007",
+    "responseCode": "OK"
+  },
+  "order": {
+    "author": {
+      "time": "20241010153045",
+      "signatureCode": "S",
+      "signatureText": "电子签名",
+      "assignedEntity": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC001"
+          }
+        },
+        "person": {
+          "name": "王医生"
+        },
+        "organization": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.5",
+              "extension": "HOSP-001"
+            }
+          },
+          "name": "北京协和医院"
+        }
+      }
+    },
+    "verifier": {
+      "time": "20241010153500",
+      "signatureCode": "S",
+      "signatureText": "电子签名",
+      "assignedEntity": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC002"
+          }
+        },
+        "person": {
+          "name": "李主任"
+        }
+      }
+    },
+    "components": {
+      "sequenceNumber": "1",
+      "substanceAdministration": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.4",
+            "extension": "ORD-20241010-00001"
+          }
+        },
+        "code": {
+          "item": {
+            "code": "H01AC01",
+            "codeSystem": "ATC"
+          }
+        },
+        "text": "阿司匹林肠溶片 100mg 口服 每日一次",
+        "statusCode": "active",
+        "effectiveTime": "20241010153045",
+        "routeCode": {
+          "code": "PO",
+          "displayName": "口服"
+        },
+        "doseQuantity": {
+          "value": "100",
+          "unit": "mg"
+        },
+        "medication": {
+          "id": "MED-001",
+          "name": "阿司匹林肠溶片",
+          "specification": "100mg"
+        },
+        "location": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "WARD-001"
+            }
+          },
+          "name": "心内科一病区"
+        },
+        "orderCategory": {
+          "code": "1",
+          "displayName": "西药"
+        },
+        "annotation": {
+          "text": "饭前服用"
+        }
+      }
+    },
+    "encounter": {
+      "visitNumber": {
+        "item": {
+          "root": "2.16.156.10011.2.5.1.4",
+          "extension": "VISIT-20241010-00001"
+        }
+      },
+      "encounterId": {
+        "item": {
+          "root": "2.16.156.10011.2.5.1.4",
+          "extension": "ENC-20241010-00001"
+        }
+      },
+      "patientType": {
+        "code": "1",
+        "displayName": "住院"
+      },
+      "patient": {
+        "id": "110101199001011234",
+        "name": "张三",
+        "gender": "1",
+        "birthTime": "19900101",
+        "healthCardNumber": "HC-20241010-001"
+      },
+      "location": {
+        "bed": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "BED-001-12"
+            }
+          },
+          "name": "12号床"
+        },
+        "department": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "DEPT-001"
+            }
+          },
+          "name": "心内科"
+        }
+      }
+    }
+  }
+}

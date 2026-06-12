@@ -1,0 +1,72 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00031"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "PRPM_IN306010UV01"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HR-001"
+          }
+        }
+      }
+    }
+  },
+  "controlActProcess": {
+    "queryByParameterPayload": {
+      "statusCode": "new",
+      "administrativeGender": {
+        "value": {
+          "code": "1",
+          "codeSystem": "2.16.156.10011.2.3.3.4",
+          "displayName": "男性"
+        }
+      },
+      "dOB": {
+        "value": {
+          "low": "19800101",
+          "high": "19901231"
+        }
+      },
+      "providerID": {
+        "value": [
+          {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC001"
+          },
+          {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC002"
+          }
+        ]
+      },
+      "providerName": {
+        "value": {
+          "part": {
+            "value": "王医生"
+          }
+        }
+      }
+    }
+  }
+}

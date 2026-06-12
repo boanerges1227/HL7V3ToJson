@@ -1,0 +1,296 @@
+{
+  "PRPM_IN401030UV01": {
+    "_description": "医疗卫生机构（科室）信息注册服务请求消息",
+    "messageHeader": {
+      "_description": "消息头信息",
+      "id": {
+        "_description": "消息流水号",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "字符串，最大长度50",
+        "root": {
+          "_description": "固定值，标识ID类型为消息流水号",
+          "_value": "2.16.156.10011.2.5.1.1"
+        },
+        "extension": {
+          "_description": "消息流水号的具体值，由发送方生成的唯一标识",
+          "_example": "8D73520B-D489-4B70-8F4B-7B5C2D7961B5"
+        }
+      },
+      "creationTime": {
+        "_description": "消息创建时间，标识消息何时生成",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "日期时间格式，yyyyMMddHHmmss（DT15）",
+        "_example": "20130116112855"
+      },
+      "interactionId": {
+        "_description": "消息服务标识，标识本消息对应哪个服务接口",
+        "_cardinality": "1..1",
+        "_required": true,
+        "root": {
+          "_description": "固定值，标识ID类型为消息服务标识",
+          "_value": "2.16.156.10011.2.5.1.2"
+        },
+        "extension": {
+          "_description": "服务标识代码",
+          "_fixedValue": "PRPM_IN401030UV01",
+          "_allowedValues": [
+            "PRPM_IN401030UV01 - 医疗卫生机构（科室）信息注册请求",
+            "PRPM_IN403010UV01 - 医疗卫生机构（科室）信息更新请求",
+            "PRPM_IN406010UV01 - 医疗卫生机构（科室）信息查询请求",
+            "PRPM_IN406110UV01 - 医疗卫生机构（科室）信息查询应答",
+            "MCCI_IN000002UV01 - 通用应答消息"
+          ]
+        }
+      },
+      "processingCode": {
+        "_description": "处理代码，标识此消息属于哪种系统环境",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_allowedValues": {
+          "D": "调试系统（Debug）",
+          "P": "产品系统（Production）",
+          "T": "训练系统（Training）"
+        }
+      },
+      "acceptAckCode": {
+        "_description": "消息应答控制码，标识接收方是否需要返回应答",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_allowedValues": {
+          "AL": "总是返回应答（Always）",
+          "ER": "仅在错误时返回应答（Error/reject only）",
+          "NE": "从不返回应答（Never）"
+        }
+      },
+      "receiver": {
+        "_description": "接收者信息，标识消息的目标系统",
+        "_cardinality": "1..1",
+        "_required": true,
+        "device": {
+          "_description": "接收设备/系统信息",
+          "id": {
+            "_description": "接收系统标识",
+            "item": {
+              "_description": "系统标识信息",
+              "root": {
+                "_description": "固定值，标识ID类型为系统标识",
+                "_value": "2.16.156.10011.2.5.1.3"
+              },
+              "extension": {
+                "_description": "接收系统的唯一标识编码"
+              }
+            }
+          }
+        }
+      },
+      "sender": {
+        "_description": "发送者信息，标识消息的来源系统",
+        "_cardinality": "1..1",
+        "_required": true,
+        "device": {
+          "_description": "发送设备/系统信息",
+          "id": {
+            "_description": "发送系统标识",
+            "item": {
+              "_description": "系统标识信息",
+              "root": {
+                "_description": "固定值，标识ID类型为系统标识",
+                "_value": "2.16.156.10011.2.5.1.3"
+              },
+              "extension": {
+                "_description": "发送系统的唯一标识编码"
+              }
+            }
+          }
+        }
+      }
+    },
+    "controlActProcess": {
+      "_description": "业务控制信息，包含注册请求的业务数据",
+      "subject": {
+        "_description": "注册请求主体",
+        "registrationRequest": {
+          "_description": "注册请求信息",
+          "statusCode": {
+            "_description": "请求状态",
+            "_fixedValue": "active"
+          },
+          "subject1": {
+            "_description": "医疗卫生机构（科室）注册主体信息",
+            "assignedEntity": {
+              "_description": "医疗卫生机构（科室）实体信息",
+              "id": {
+                "_description": "医疗卫生机构科室号",
+                "_cardinality": "1..1",
+                "_required": true,
+                "_format": "字符串，最大长度50",
+                "item": {
+                  "_description": "科室标识",
+                  "root": {
+                    "_description": "固定值，标识ID类型为科室号",
+                    "_value": "2.16.156.10011.1.26"
+                  },
+                  "extension": {
+                    "_description": "科室号的具体值"
+                  }
+                }
+              },
+              "code": {
+                "_description": "医疗卫生机构科室代码",
+                "_cardinality": "0..1",
+                "_required": false,
+                "_dataElement": "DE08.10.025.00",
+                "codeSystem": {
+                  "_description": "固定值，医疗卫生机构业务科室分类与代码表",
+                  "_value": "2.16.156.10011.2.3.2.62"
+                },
+                "codeSystemName": {
+                  "_description": "固定值",
+                  "_value": "医疗卫生机构业务科室分类与代码表"
+                },
+                "displayName": {
+                  "_description": "医疗卫生机构科室分类代码对应的名称",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_format": "字符串，最大长度100"
+                }
+              },
+              "name": {
+                "_description": "医疗卫生机构科室名称",
+                "_cardinality": "0..1",
+                "_required": false,
+                "_dataElement": "DE08.10.026.00"
+              },
+              "addr": {
+                "_description": "医疗卫生机构地址",
+                "_cardinality": "0..1",
+                "_required": false,
+                "_format": "字符串，最大长度100"
+              },
+              "telecom": {
+                "_description": "医疗卫生机构联系电话号码",
+                "_cardinality": "0..1",
+                "_required": false,
+                "_dataElement": "DE02.01.010.15"
+              },
+              "statusCode": {
+                "_description": "角色状态",
+                "_fixedValue": "active"
+              },
+              "effectiveTime": {
+                "_description": "角色有效期间",
+                "low": {
+                  "_description": "角色有效期间（开始时间）",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_format": "日期时间格式，DT15"
+                },
+                "high": {
+                  "_description": "角色有效期间（结束时间）",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_format": "日期时间格式，DT15"
+                }
+              },
+              "assignedPrincipalOrganization": {
+                "_description": "上级医疗卫生机构科室信息",
+                "name": {
+                  "_description": "上级医疗卫生机构科室名称",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_dataElement": "DE08.10.026.00"
+                },
+                "id": {
+                  "_description": "上级医疗卫生机构科室号",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_format": "字符串，最大长度50",
+                  "item": {
+                    "_description": "上级科室标识",
+                    "root": {
+                      "_description": "固定值",
+                      "_value": "2.16.156.10011.1.26"
+                    },
+                    "extension": {
+                      "_description": "上级科室号的具体值"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "author": {
+            "_description": "申请者信息",
+            "assignedEntity": {
+              "_description": "申请者实体信息",
+              "id": {
+                "_description": "申请者工号",
+                "_cardinality": "1..1",
+                "_required": true,
+                "_format": "字符串，最大长度50",
+                "item": {
+                  "_description": "申请者标识",
+                  "root": {
+                    "_description": "固定值，标识ID类型为医护人员工号",
+                    "_value": "2.16.156.10011.1.4"
+                  },
+                  "extension": {
+                    "_description": "申请者工号的具体值"
+                  }
+                }
+              },
+              "assignedPerson": {
+                "_description": "申请者个人信息",
+                "name": {
+                  "_description": "申请者姓名",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_dataElement": "DE02.01.039.00"
+                }
+              },
+              "representedOrganization": {
+                "_description": "申请者所属机构信息",
+                "id": {
+                  "_description": "科室号标识",
+                  "_cardinality": "1..1",
+                  "_required": true,
+                  "_format": "字符串，最大长度50",
+                  "item": {
+                    "_description": "科室标识",
+                    "root": {
+                      "_description": "固定值",
+                      "_value": "2.16.156.10011.2.3.2.62"
+                    },
+                    "extension": {
+                      "_description": "科室号的具体值"
+                    }
+                  }
+                },
+                "name": {
+                  "_description": "科室名称",
+                  "_cardinality": "0..1",
+                  "_required": false,
+                  "_dataElement": "DE08.10.026.00"
+                },
+                "contactParty": {
+                  "_description": "联系人信息",
+                  "contactPerson": {
+                    "_description": "联系人个人信息",
+                    "name": {
+                      "_description": "医疗卫生机构科室联系人姓名",
+                      "_cardinality": "0..1",
+                      "_required": false,
+                      "_dataElement": "DE02.01.039.00"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

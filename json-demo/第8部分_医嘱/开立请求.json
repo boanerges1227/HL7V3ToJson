@@ -1,0 +1,241 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00004"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "POOR_IN200901UV"
+    },
+    "processingCode": "P",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        }
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-EMR-001"
+          }
+        }
+      }
+    }
+  },
+  "order": {
+    "author": {
+      "time": "20241010153045",
+      "signatureCode": "S",
+      "signatureText": "电子签名",
+      "assignedEntity": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC001"
+          }
+        },
+        "person": {
+          "name": "王医生"
+        },
+        "organization": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.5",
+              "extension": "HOSP-001"
+            }
+          },
+          "name": "北京协和医院"
+        }
+      }
+    },
+    "verifier": {
+      "time": "20241010153500",
+      "signatureCode": "S",
+      "signatureText": "电子签名",
+      "assignedEntity": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.1.4",
+            "extension": "DOC002"
+          }
+        },
+        "person": {
+          "name": "李主任"
+        }
+      }
+    },
+    "components": {
+      "sequenceNumber": "1",
+      "substanceAdministration": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.4",
+            "extension": "ORD-20241010-00001"
+          }
+        },
+        "code": {
+          "codeSystem": "2.16.156.10011.2.3.3.12",
+          "displayName": "药品"
+        },
+        "text": "阿司匹林肠溶片 100mg 口服 每日一次",
+        "statusCode": "active",
+        "effectiveTime": {
+          "validTimeLow": "20241010153045",
+          "validTimeHigh": "20241017153045",
+          "code": {
+            "codeSystem": "2.16.156.10011.2.5.1.10",
+            "displayName": "医嘱有效时间"
+          }
+        },
+        "routeCode": {
+          "codeSystem": "2.16.156.10011.2.3.3.16",
+          "displayName": "口服"
+        },
+        "doseQuantity": {
+          "value": "100",
+          "unit": "mg"
+        },
+        "doseCheckQuantity": {
+          "item": {
+            "numerator": {
+              "value": "100",
+              "unit": "mg"
+            },
+            "denominator": {
+              "value": "1",
+              "unit": "天"
+            }
+          }
+        },
+        "administrationUnitCode": {
+          "codeSystem": "2.16.156.10011.2.3.3.16",
+          "displayName": "片"
+        },
+        "medication": {
+          "id": "MED-001",
+          "code": {
+            "code": "H01AC01",
+            "codeSystem": "ATC"
+          },
+          "name": "阿司匹林肠溶片",
+          "specification": {
+            "value": "100mg",
+            "unit": "片"
+          },
+          "insuranceCategory": {
+            "code": "甲",
+            "displayName": "甲类"
+          }
+        },
+        "location": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "WARD-001"
+            }
+          },
+          "name": "心内科一病区"
+        },
+        "parentOrderId": "示例值",
+        "orderCategory": {
+          "codeSystem": "2.16.156.10011.2.3.3.12",
+          "code": "1",
+          "displayName": "西药"
+        },
+        "supplyRequest": {
+          "statusCode": "active",
+          "quantity": {
+            "value": "30",
+            "unit": "片"
+          },
+          "expectedUseTime": {
+            "validTimeLow": "20241010153045",
+            "validTimeHigh": "20241017153045"
+          }
+        },
+        "annotation": {
+          "text": "饭前服用，注意观察出血情况",
+          "statusCode": "completed"
+        }
+      }
+    },
+    "encounter": {
+      "visitNumber": {
+        "item": {
+          "root": "2.16.156.10011.2.5.1.4",
+          "extension": "VISIT-20241010-00001"
+        }
+      },
+      "encounterId": {
+        "item": {
+          "root": "2.16.156.10011.2.5.1.4",
+          "extension": "ENC-20241010-00001"
+        }
+      },
+      "patientType": {
+        "code": "1",
+        "displayName": "住院"
+      },
+      "statusCode": "active",
+      "patient": {
+        "id": "110101199001011234",
+        "telecom": "13800138000",
+        "statusCode": "active",
+        "person": {
+          "name": "张三",
+          "gender": "1",
+          "birthTime": "19900101",
+          "healthCardNumber": "HC-20241010-001"
+        }
+      },
+      "location": {
+        "bed": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "BED-001-12"
+            }
+          },
+          "name": "12号床",
+          "ward": {
+            "id": {
+              "item": {
+                "root": "2.16.156.10011.1.26",
+                "extension": "WARD-001"
+              }
+            },
+            "name": "心内科一病区"
+          }
+        },
+        "department": {
+          "id": {
+            "item": {
+              "root": "2.16.156.10011.1.26",
+              "extension": "DEPT-001"
+            }
+          },
+          "name": "心内科",
+          "wardArea": {
+            "id": {
+              "item": {
+                "root": "2.16.156.10011.1.26",
+                "extension": "AREA-001"
+              }
+            },
+            "name": "住院楼A区"
+          }
+        }
+      }
+    }
+  }
+}

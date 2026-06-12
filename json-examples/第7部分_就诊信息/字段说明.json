@@ -1,0 +1,61 @@
+{
+  "partName": "第7部分：就诊信息交互服务",
+  "standardCode": "WS/T 846.7-2024",
+  "services": [
+    {
+      "serviceName": "门诊挂号信息新增服务",
+      "interactionId": "PRPA_IN400001UV",
+      "description": "用于门诊挂号信息的登记",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.id.item", "name": "就诊流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.9", "description": "就诊唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.patientId.item", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "患者唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.outpatientNo", "name": "门诊号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.10", "description": "门诊就诊号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.deptId", "name": "挂号科室", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.26", "description": "挂号科室编号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.doctorId", "name": "挂号医生", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.4", "description": "指定医生工号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.visitType", "name": "就诊类型", "type": "string", "required": true, "enum": ["普通门诊", "专家门诊", "急诊", "特需门诊"], "description": "门诊类型"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.registerTime", "name": "挂号时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "挂号操作时间"}
+      ]
+    },
+    {
+      "serviceName": "住院就诊信息登记服务",
+      "interactionId": "PRPA_IN400001UV",
+      "description": "用于住院患者入院登记",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.id.item", "name": "就诊流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.9", "description": "就诊唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.patientId.item", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "患者唯一标识"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.inpatientNo", "name": "住院号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.12", "description": "住院号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.deptId", "name": "入院科室", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.26", "description": "入院科室编号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.wardId", "name": "病区", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.27", "description": "病区编号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.bedId", "name": "床位", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.22", "description": "床位编号"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.admitTime", "name": "入院时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "入院时间"},
+        {"path": "controlActProcess.subject.registrationRequest.encounter.admitDiagnosis", "name": "入院诊断", "type": "string", "required": false, "maxLength": 200, "description": "入院诊断"}
+      ]
+    },
+    {
+      "serviceName": "出院登记信息新增服务",
+      "interactionId": "PRPA_IN400003UV01",
+      "description": "用于住院患者出院登记",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.subject.dischargeRequest.encounterId.item", "name": "就诊流水号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.9", "description": "就诊唯一标识"},
+        {"path": "controlActProcess.subject.dischargeRequest.patientId.item", "name": "患者编号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.2.5.1.4", "description": "患者唯一标识"},
+        {"path": "controlActProcess.subject.dischargeRequest.inpatientNo", "name": "住院号", "type": "string", "required": true, "oidRoot": "2.16.156.10011.1.12", "description": "住院号"},
+        {"path": "controlActProcess.subject.dischargeRequest.dischargeTime", "name": "出院时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "出院时间"},
+        {"path": "controlActProcess.subject.dischargeRequest.dischargeDiagnosis", "name": "出院诊断", "type": "string", "required": false, "maxLength": 200, "description": "出院诊断"},
+        {"path": "controlActProcess.subject.dischargeRequest.dischargeDisposition", "name": "出院方式", "type": "string", "required": true, "enum": ["医嘱离院", "医嘱转院", "医嘱转社区", "非医嘱离院", "死亡"], "description": "出院方式"}
+      ]
+    }
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.2.5.1.9", "name": "就诊流水号"},
+    {"oid": "2.16.156.10011.1.10", "name": "门急诊号"},
+    {"oid": "2.16.156.10011.1.12", "name": "住院号"},
+    {"oid": "2.16.156.10011.1.26", "name": "科室编码"},
+    {"oid": "2.16.156.10011.1.27", "name": "病区编码"},
+    {"oid": "2.16.156.10011.1.22", "name": "病床号"}
+  ]
+}

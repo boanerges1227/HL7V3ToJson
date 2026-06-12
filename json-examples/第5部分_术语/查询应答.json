@@ -1,0 +1,301 @@
+{
+  "messageHeader": {
+    "_description": "消息头信息，所有消息类型的公共部分",
+    "id": {
+      "_description": "消息流水号，唯一标识本条消息",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_format": "字符串，最大长度50",
+      "root": {
+        "_description": "固定值，标识ID类型为消息流水号",
+        "_value": "2.16.156.10011.2.5.1.1"
+      },
+      "extension": {
+        "_description": "消息流水号的具体值，由发送方生成的唯一标识",
+        "_example": "22a0f9e0-4454-11dc-a6be-3603d6866807"
+      }
+    },
+    "creationTime": {
+      "_description": "消息创建时间，标识消息何时生成",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_format": "日期时间格式，yyyyMMddHHmmss（DT15）",
+      "_example": "20130501130624"
+    },
+    "interactionId": {
+      "_description": "消息服务标识，标识本消息对应哪个服务接口",
+      "_cardinality": "1..1",
+      "_required": true,
+      "root": {
+        "_description": "固定值，标识ID类型为消息服务标识",
+        "_value": "2.16.156.10011.2.5.1.2"
+      },
+      "extension": {
+        "_description": "服务标识代码，PRVS_IN000004UV01 表示术语查询响应",
+        "_value": "PRVS_IN000004UV01"
+      }
+    },
+    "processingCode": {
+      "_description": "处理代码，标识此消息属于哪种系统环境",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_allowedValues": {
+        "D": "调试系统（Debug）",
+        "P": "产品系统（Production）",
+        "T": "训练系统（Training）"
+      }
+    },
+    "processingModeCode": {
+      "_description": "处理模型代码，定义此消息是文档处理还是初始装载的一部分",
+      "_cardinality": "0..1",
+      "_required": false,
+      "_allowedValues": {
+        "A": "存档（Archive）",
+        "I": "初始装载（Initial Load）",
+        "R": "从存档中恢复（Restore from Archive）",
+        "T": "当前处理，间隔传递（Current Processing）"
+      }
+    },
+    "acceptAckCode": {
+      "_description": "消息应答控制码，标识接收方是否需要返回应答",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_allowedValues": {
+        "AL": "总是返回应答（Always）",
+        "ER": "仅在错误时返回应答（Error/reject only）",
+        "NE": "从不返回应答（Never）",
+        "SU": "仅在成功完成时返回应答（Success only）"
+      }
+    },
+    "receiver": {
+      "_description": "接收者信息，标识消息的目标系统",
+      "_cardinality": "1..1",
+      "_required": true,
+      "typeCode": {
+        "_description": "固定值，表示接收方",
+        "_value": "RCV"
+      },
+      "device": {
+        "_description": "接收设备/系统信息",
+        "classCode": {
+          "_description": "固定值，表示设备",
+          "_value": "DEV"
+        },
+        "determinerCode": {
+          "_description": "固定值，表示实例",
+          "_value": "INSTANCE"
+        },
+        "id": {
+          "_description": "接收系统标识",
+          "item": {
+            "_description": "系统标识信息",
+            "root": {
+              "_description": "固定值，标识ID类型为系统标识",
+              "_value": "2.16.156.10011.2.5.1.3"
+            },
+            "extension": {
+              "_description": "接收系统的唯一标识编码"
+            }
+          }
+        }
+      }
+    },
+    "sender": {
+      "_description": "发送者信息，标识消息的来源系统",
+      "_cardinality": "1..1",
+      "_required": true,
+      "typeCode": {
+        "_description": "固定值，表示发送方",
+        "_value": "SND"
+      },
+      "device": {
+        "_description": "发送设备/系统信息",
+        "classCode": {
+          "_description": "固定值，表示设备",
+          "_value": "DEV"
+        },
+        "determinerCode": {
+          "_description": "固定值，表示实例",
+          "_value": "INSTANCE"
+        },
+        "id": {
+          "_description": "发送系统标识",
+          "item": {
+            "_description": "系统标识信息",
+            "root": {
+              "_description": "固定值，标识ID类型为系统标识",
+              "_value": "2.16.156.10011.2.5.1.3"
+            },
+            "extension": {
+              "_description": "发送系统的唯一标识编码"
+            }
+          }
+        }
+      }
+    }
+  },
+  "acknowledgement": {
+    "_description": "应答信息主体",
+    "typeCode": {
+      "_description": "处理结果类型码",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_allowedValues": {
+        "AA": "接受成功（Accept Acknowledgement）",
+        "AE": "接受失败（Application Error）",
+        "AR": "拒绝（Application Reject）"
+      }
+    },
+    "targetMessage": {
+      "_description": "被应答的原始请求消息引用",
+      "_cardinality": "1..1",
+      "_required": true,
+      "id": {
+        "_description": "原始请求消息的流水号",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "字符串，最大长度50",
+        "root": {
+          "_description": "固定值",
+          "_value": "2.16.156.10011.2.5.1.1"
+        },
+        "extension": {
+          "_description": "被应答的请求消息流水号"
+        }
+      }
+    },
+    "acknowledgementDetail": {
+      "_description": "应答详细信息",
+      "_cardinality": "1..1",
+      "_required": true,
+      "text": {
+        "_description": "处理结果说明",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "字符串，最大长度200"
+      }
+    }
+  },
+  "controlActProcess": {
+    "_description": "控制活动过程，包含查询响应的主体内容",
+    "classCode": {
+      "_description": "固定值",
+      "_value": "CACT"
+    },
+    "moodCode": {
+      "_description": "固定值，表示事件",
+      "_value": "EVN"
+    },
+    "subject": {
+      "_description": "主题信息",
+      "typeCode": {
+        "_description": "固定值",
+        "_value": "SUBJ"
+      },
+      "registrationRequest": {
+        "_description": "注册请求信息（用于返回值集数据）",
+        "classCode": {
+          "_description": "固定值，表示注册",
+          "_value": "REG"
+        },
+        "moodCode": {
+          "_description": "固定值，表示请求",
+          "_value": "RQO"
+        },
+        "statusCode": {
+          "_description": "状态码"
+        },
+        "subject1": {
+          "_description": "值集信息，subject1为0..*",
+          "_cardinality": "0..*",
+          "_required": false,
+          "typeCode": {
+            "_description": "固定值",
+            "_value": "SBJ"
+          },
+          "valueSet": {
+            "_description": "值集信息",
+            "id": {
+              "_description": "值集标识符",
+              "_cardinality": "1..1",
+              "_required": true,
+              "_format": "字符串，最大长度50"
+            },
+            "desc": {
+              "_description": "值集描述",
+              "_cardinality": "1..1",
+              "_required": true,
+              "_format": "字符串，最大长度100"
+            },
+            "statusCode": {
+              "_description": "值集状态代码",
+              "_cardinality": "0..1",
+              "_required": false,
+              "_format": "字符串，最大长度50"
+            },
+            "version": {
+              "_description": "值集版本信息",
+              "_cardinality": "0..1",
+              "_required": false,
+              "code": {
+                "_description": "版本代码",
+                "_format": "字符串，最大长度50"
+              },
+              "displayName": {
+                "_description": "版本描述",
+                "_format": "字符串，最大长度100"
+              }
+            },
+            "valueSetItems": {
+              "_description": "值集项目内容",
+              "_cardinality": "0..*",
+              "_required": false,
+              "code": {
+                "_description": "项目代码",
+                "_cardinality": "1..1",
+                "_required": true,
+                "_format": "字符串，最大长度50"
+              },
+              "displayName": {
+                "_description": "项目描述",
+                "_cardinality": "1..1",
+                "_required": true,
+                "_format": "字符串，最大长度100"
+              },
+              "statusCode": {
+                "_description": "项目状态代码",
+                "_cardinality": "0..1",
+                "_required": false,
+                "_format": "字符串，最大长度50"
+              }
+            }
+          }
+        }
+      }
+    },
+    "queryAck": {
+      "_description": "查询应答信息",
+      "queryId": {
+        "_description": "查询ID",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "字符串，最大长度50"
+      },
+      "queryResponseCode": {
+        "_description": "查询响应代码",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_allowedValues": {
+          "OK": "查询成功",
+          "NF": "未找到",
+          "ERR": "错误"
+        }
+      },
+      "resultTotalQuantity": {
+        "_description": "结果总数量",
+        "_cardinality": "0..1",
+        "_required": false
+      }
+    }
+  }
+}

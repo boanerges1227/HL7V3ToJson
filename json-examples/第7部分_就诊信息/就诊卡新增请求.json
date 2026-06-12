@@ -1,0 +1,407 @@
+{
+  "messageHeader": {
+    "_description": "消息头信息，所有消息类型的公共部分",
+    "id": {
+      "_description": "消息流水号，唯一标识本条消息",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_format": "字符串，最大长度50",
+      "_dataElement": "消息流水号",
+      "root": {
+        "_description": "固定值，标识ID类型为消息流水号",
+        "_value": "2.16.156.10011.2.5.1.1"
+      },
+      "extension": {
+        "_description": "消息流水号的具体值，由发送方生成的唯一标识",
+        "_example": "22a0f9e0-4454-11dc-a6be-3603d6866807"
+      }
+    },
+    "creationTime": {
+      "_description": "消息创建时间，标识消息何时生成",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_format": "日期时间格式，yyyyMMddHHmmss（DT15）",
+      "_example": "20241010110000"
+    },
+    "interactionId": {
+      "_description": "消息服务标识，标识本消息对应哪个服务接口",
+      "_cardinality": "1..1",
+      "_required": true,
+      "root": {
+        "_description": "固定值，标识ID类型为消息服务标识",
+        "_value": "2.16.156.10011.2.5.1.2"
+      },
+      "extension": {
+        "_description": "服务标识代码",
+        "_allowedValues": [
+          "PRPA_IN201311UV02 - 就诊卡信息新增请求",
+          "PRPA_IN201314UV02 - 就诊卡信息更新请求",
+          "PRPA_IN201305UV02 - 就诊卡信息查询请求",
+          "PRPA_IN201306UV02 - 就诊卡信息查询应答",
+          "PRPA_IN400001UV - 门诊挂号/住院就诊信息新增请求",
+          "PRPA_IN400002UV - 门诊挂号/住院就诊信息更新请求",
+          "PRPA_IN400003UV01 - 出院登记信息新增请求",
+          "PRPA_IN900300UV - 信息查询请求",
+          "PRPA_IN900350UV - 信息查询应答",
+          "PRPA_IN302011UV - 住院转科信息新增请求",
+          "PRPA_IN302012UV - 住院转科信息更新请求",
+          "MCCI_IN000002UV01 - 通用应答消息"
+        ]
+      }
+    },
+    "processingCode": {
+      "_description": "处理代码，标识此消息属于哪种系统环境",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_allowedValues": {
+        "D": "调试系统（Debug）",
+        "P": "产品系统（Production）",
+        "T": "训练系统（Training）"
+      }
+    },
+    "acceptAckCode": {
+      "_description": "消息应答控制码，标识接收方是否需要返回应答",
+      "_cardinality": "1..1",
+      "_required": true,
+      "_allowedValues": {
+        "AL": "总是返回应答（Always）",
+        "ER": "仅在错误时返回应答（Error/reject only）",
+        "NE": "从不返回应答（Never）"
+      }
+    },
+    "receiver": {
+      "_description": "接收者信息，标识消息的目标系统",
+      "_cardinality": "1..1",
+      "_required": true,
+      "device": {
+        "_description": "接收设备/系统信息",
+        "id": {
+          "_description": "接收系统标识",
+          "item": {
+            "_description": "系统标识信息",
+            "root": {
+              "_description": "固定值，标识ID类型为系统标识",
+              "_value": "2.16.156.10011.2.5.1.3"
+            },
+            "extension": {
+              "_description": "接收系统的唯一标识编码"
+            }
+          }
+        }
+      }
+    },
+    "sender": {
+      "_description": "发送者信息，标识消息的来源系统",
+      "_cardinality": "1..1",
+      "_required": true,
+      "device": {
+        "_description": "发送设备/系统信息",
+        "id": {
+          "_description": "发送系统标识",
+          "item": {
+            "_description": "系统标识信息",
+            "root": {
+              "_description": "固定值，标识ID类型为系统标识",
+              "_value": "2.16.156.10011.2.5.1.3"
+            },
+            "extension": {
+              "_description": "发送系统的唯一标识编码"
+            }
+          }
+        }
+      }
+    }
+  },
+  "encounterCard": {
+    "_description": "就诊卡信息主体，包含就诊卡的完整内容",
+    "patient": {
+      "_description": "患者信息，包含就诊卡持有者的详细信息",
+      "id": {
+        "_description": "就诊卡标识",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "字符串，最大长度50",
+        "item": {
+          "_description": "就诊卡标识信息",
+          "root": {
+            "_description": "固定值，标识ID类型为就诊卡标识",
+            "_value": "2.16.156.10011.2.5.1.6"
+          },
+          "extension": {
+            "_description": "就诊卡标识的具体值",
+            "_example": "就诊卡ID"
+          }
+        }
+      },
+      "statusCode": {
+        "_description": "就诊卡状态",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_allowedValues": {
+          "active": "激活",
+          "disable": "作废",
+          "retired": "退卡"
+        }
+      },
+      "effectiveTime": {
+        "_description": "建卡日期时间",
+        "_cardinality": "1..1",
+        "_required": true,
+        "_format": "日期时间格式，yyyyMMddHHmmss（DT15）",
+        "low": {
+          "_description": "建卡开始时间",
+          "_example": "20241010110000"
+        }
+      },
+      "patientPerson": {
+        "_description": "患者个人信息",
+        "id": {
+          "_description": "身份证件号码",
+          "_cardinality": "1..1",
+          "_required": true,
+          "_dataElement": "DE02.01.030.00",
+          "item": {
+            "_description": "身份证件标识",
+            "root": {
+              "_description": "固定值，标识ID类型为身份证件号码",
+              "_value": "2.16.156.10011.1.3"
+            },
+            "extension": {
+              "_description": "身份证件号码的具体值",
+              "_example": "120109197706015516"
+            }
+          }
+        },
+        "name": {
+          "_description": "患者姓名",
+          "_cardinality": "1..1",
+          "_required": true,
+          "_dataElement": "DE02.01.039.00",
+          "item": {
+            "_description": "姓名信息",
+            "part": {
+              "_description": "姓名部分",
+              "_example": "刘永好"
+            }
+          }
+        },
+        "telecom": {
+          "_description": "患者联系电话号码",
+          "_cardinality": "0..1",
+          "_required": false,
+          "_dataElement": "DE02.01.010.00",
+          "item": {
+            "_description": "联系电话",
+            "_example": "028-2222444"
+          }
+        },
+        "administrativeGenderCode": {
+          "_description": "患者性别信息",
+          "_cardinality": "1..1",
+          "_required": true,
+          "_dataElement": "DE02.01.040.00",
+          "codeSystem": {
+            "_description": "固定值，性别代码表",
+            "_value": "2.16.156.10011.2.3.3.4"
+          },
+          "codeSystemName": {
+            "_description": "固定值，性别代码表名称",
+            "_value": "生理性别代码表(GB/T2261.1)"
+          },
+          "code": {
+            "_description": "性别代码",
+            "_allowedValues": {
+              "1": "男性",
+              "2": "女性",
+              "9": "未说明的性别",
+              "0": "未知的性别"
+            }
+          },
+          "displayName": {
+            "_description": "性别名称",
+            "_example": "男性"
+          }
+        },
+        "birthTime": {
+          "_description": "患者出生日期",
+          "_cardinality": "0..1",
+          "_required": false,
+          "_dataElement": "DE02.01.005.00",
+          "_format": "日期格式，yyyyMMdd",
+          "_example": "19570323"
+        },
+        "addr": {
+          "_description": "患者联系地址",
+          "_cardinality": "0..1",
+          "_required": false,
+          "item": {
+            "_description": "地址信息",
+            "part": [
+              {
+                "_description": "非结构化地址（完整地址描述）",
+                "type": {
+                  "_value": "SAL"
+                },
+                "value": {
+                  "_description": "完整地址",
+                  "_example": "四川省成都市双流县红沙村"
+                }
+              },
+              {
+                "_description": "地址-省（自治区、直辖市）",
+                "type": {
+                  "_value": "STA"
+                },
+                "value": {
+                  "_description": "省份",
+                  "_dataElement": "DE02.01.091.00"
+                }
+              },
+              {
+                "_description": "地址-市（地区）",
+                "type": {
+                  "_value": "CTY"
+                },
+                "value": {
+                  "_description": "城市",
+                  "_dataElement": "DE02.01.092.00"
+                }
+              },
+              {
+                "_description": "地址-县（区）",
+                "type": {
+                  "_value": "CNT"
+                },
+                "value": {
+                  "_description": "区县",
+                  "_dataElement": "DE02.01.093.00"
+                }
+              },
+              {
+                "_description": "地址-乡（镇、街道办事处）",
+                "type": {
+                  "_value": "STB"
+                },
+                "value": {
+                  "_description": "乡镇",
+                  "_dataElement": "DE02.01.094.00"
+                }
+              },
+              {
+                "_description": "地址-村（街、路、弄等）",
+                "type": {
+                  "_value": "STR"
+                },
+                "value": {
+                  "_description": "街道",
+                  "_dataElement": "DE02.01.095.00"
+                }
+              },
+              {
+                "_description": "地址-门牌号码",
+                "type": {
+                  "_value": "BNR"
+                },
+                "value": {
+                  "_description": "门牌号",
+                  "_dataElement": "DE02.01.096.00"
+                }
+              },
+              {
+                "_description": "邮政编码",
+                "type": {
+                  "_value": "ZIP"
+                },
+                "value": {
+                  "_description": "邮编",
+                  "_dataElement": "DE02.01.047.00"
+                }
+              }
+            ]
+          }
+        },
+        "maritalStatusCode": {
+          "_description": "婚姻状况信息",
+          "_cardinality": "0..1",
+          "_required": false,
+          "_dataElement": "DE02.01.018.00",
+          "codeSystem": {
+            "_description": "固定值，婚姻状况代码表",
+            "_value": "2.16.156.10011.2.3.3.5"
+          },
+          "codeSystemName": {
+            "_description": "固定值，婚姻状况代码表名称",
+            "_value": "婚姻状况代码表(GB/T2261.2)"
+          },
+          "code": {
+            "_description": "婚姻状况代码",
+            "_allowedValues": {
+              "10": "未婚",
+              "20": "已婚",
+              "21": "初婚",
+              "22": "再婚",
+              "23": "复婚",
+              "30": "丧偶",
+              "40": "离婚",
+              "90": "其他"
+            }
+          },
+          "displayName": {
+            "_description": "婚姻状况名称",
+            "_example": "未婚"
+          }
+        },
+        "ethnicGroupCode": {
+          "_description": "民族信息",
+          "_cardinality": "0..1",
+          "_required": false,
+          "_dataElement": "DE02.01.025.00",
+          "item": {
+            "_description": "民族信息",
+            "codeSystem": {
+              "_description": "固定值，民族代码表",
+              "_value": "2.16.156.10011.2.3.3.3"
+            },
+            "codeSystemName": {
+              "_description": "固定值，民族代码表名称",
+              "_value": "民族类别代码表(GB3304)"
+            },
+            "code": {
+              "_description": "民族代码",
+              "_example": "01"
+            },
+            "displayName": {
+              "_description": "民族名称",
+              "_example": "汉族"
+            }
+          }
+        },
+        "asEmployee": {
+          "_description": "职业信息",
+          "_cardinality": "0..1",
+          "_required": false,
+          "occupationCode": {
+            "_description": "职业类别代码",
+            "_dataElement": "DE02.01.042.00",
+            "codeSystem": {
+              "_description": "固定值，职业代码表",
+              "_value": "2.16.156.10011.2.3.3.7"
+            },
+            "codeSystemName": {
+              "_description": "固定值，职业代码表名称",
+              "_value": "职业类别代码表(GB/T6565)"
+            },
+            "code": {
+              "_description": "职业代码",
+              "_example": "13"
+            },
+            "displayName": {
+              "_description": "职业名称",
+              "_example": "专业技术人员"
+            }
+          }
+        }
+      }
+    }
+  }
+}

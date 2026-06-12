@@ -1,0 +1,58 @@
+{
+  "partName": "第11部分：状态信息交互服务",
+  "standardCode": "WS/T 846.11-2024",
+  "services": [
+    {
+      "serviceName": "状态更新服务",
+      "interactionId": "POOR_IN200920UV",
+      "description": "用于业务状态信息的更新",
+      "fields": [
+        {"path": "messageHeader.id.root", "name": "消息流水号根标识", "type": "string", "required": true, "fixedValue": "2.16.156.10011.2.5.1.1", "description": "固定值"},
+        {"path": "messageHeader.id.extension", "name": "消息流水号", "type": "string", "required": true, "maxLength": 50, "description": "消息唯一标识"},
+        {"path": "messageHeader.creationTime", "name": "消息创建时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "消息生成时间"},
+        {"path": "messageHeader.interactionId.extension", "name": "服务标识", "type": "string", "required": true, "fixedValue": "POOR_IN200920UV", "description": "状态更新服务标识"},
+        {"path": "controlActProcess.subject.statusUpdate.businessId.item", "name": "业务编号", "type": "string", "required": true, "description": "要更新状态的业务记录编号"},
+        {"path": "controlActProcess.subject.statusUpdate.businessType", "name": "业务类型", "type": "string", "required": true, "enum": ["预约", "挂号", "就诊", "医嘱", "检查", "检验", "手术", "出院"], "description": "业务记录类型"},
+        {"path": "controlActProcess.subject.statusUpdate.statusCode", "name": "状态代码", "type": "string", "required": true, "enum": ["active-进行中", "completed-已完成", "cancelled-已取消", "suspended-已暂停"], "description": "新的状态代码"},
+        {"path": "controlActProcess.subject.statusUpdate.statusName", "name": "状态名称", "type": "string", "required": true, "description": "状态中文名称"},
+        {"path": "controlActProcess.subject.statusUpdate.updateTime", "name": "更新时间", "type": "datetime", "required": true, "format": "yyyyMMddHHmmss", "description": "状态更新时间"},
+        {"path": "controlActProcess.subject.statusUpdate.updateOperator", "name": "操作人", "type": "string", "required": false, "oidRoot": "2.16.156.10011.1.4", "description": "执行状态更新的操作人"},
+        {"path": "controlActProcess.subject.statusUpdate.remark", "name": "备注", "type": "string", "required": false, "maxLength": 200, "description": "状态更新备注说明"}
+      ]
+    },
+    {
+      "serviceName": "状态查询服务",
+      "interactionId": "QUMT_IN020070UV01",
+      "description": "用于查询业务状态信息",
+      "fields": [
+        {"path": "messageHeader", "name": "消息头", "type": "object", "required": true, "description": "标准消息头"},
+        {"path": "controlActProcess.queryByParameter.businessId", "name": "业务编号", "type": "string", "required": false, "description": "按业务编号查询"},
+        {"path": "controlActProcess.queryByParameter.businessType", "name": "业务类型", "type": "string", "required": false, "enum": ["预约", "挂号", "就诊", "医嘱", "检查", "检验", "手术", "出院"], "description": "按业务类型查询"},
+        {"path": "controlActProcess.queryByParameter.patientId", "name": "患者编号", "type": "string", "required": false, "description": "按患者编号查询"},
+        {"path": "controlActProcess.queryByParameter.status", "name": "状态代码", "type": "string", "required": false, "description": "按状态代码查询"},
+        {"path": "controlActProcess.queryByParameter.updateTimeRange", "name": "更新时间范围", "type": "object", "required": false, "description": "按更新时间范围查询"}
+      ]
+    }
+  ],
+  "statusCodes": [
+    {"code": "active", "name": "进行中", "description": "业务正在处理中"},
+    {"code": "completed", "name": "已完成", "description": "业务已顺利完成"},
+    {"code": "cancelled", "name": "已取消", "description": "业务已被取消"},
+    {"code": "suspended", "name": "已暂停", "description": "业务处理暂停"}
+  ],
+  "businessTypes": [
+    {"code": "预约", "description": "预约挂号业务"},
+    {"code": "挂号", "description": "门诊挂号业务"},
+    {"code": "就诊", "description": "门诊/住院就诊业务"},
+    {"code": "医嘱", "description": "医嘱开立/执行业务"},
+    {"code": "检查", "description": "影像/超声等检查业务"},
+    {"code": "检验", "description": "血液/体液等检验业务"},
+    {"code": "手术", "description": "手术安排/执行业务"},
+    {"code": "出院", "description": "住院出院业务"}
+  ],
+  "commonOids": [
+    {"oid": "2.16.156.10011.2.5.1.1", "name": "消息流水号"},
+    {"oid": "2.16.156.10011.2.5.1.4", "name": "患者编号"},
+    {"oid": "2.16.156.10011.1.4", "name": "医护人员工号"}
+  ]
+}

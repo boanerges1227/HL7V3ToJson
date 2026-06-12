@@ -1,0 +1,67 @@
+{
+  "messageHeader": {
+    "id": {
+      "root": "2.16.156.10011.2.5.1.1",
+      "extension": "MSG-20241010-00038"
+    },
+    "creationTime": "20241010153045",
+    "interactionId": {
+      "root": "2.16.156.10011.2.5.1.2",
+      "extension": "QUMT_IN020040UV01"
+    },
+    "processingCode": "P",
+    "processingModeCode": "T",
+    "acceptAckCode": "AL",
+    "receiver": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-HIS-001"
+          }
+        },
+        "telecom": "http://localhost:8080/services"
+      }
+    },
+    "sender": {
+      "device": {
+        "id": {
+          "item": {
+            "root": "2.16.156.10011.2.5.1.3",
+            "extension": "SYS-APPT-001"
+          }
+        },
+        "telecom": "http://localhost:8081/services"
+      }
+    }
+  },
+  "queryResponse": {
+    "queryAck": {
+      "queryId": {
+        "root": "2.16.156.10011.2.5.1.1",
+        "extension": "QUERY-20241010-00008"
+      },
+      "statusCode": "complete",
+      "resultTotalQuantity": "1"
+    },
+    "appointmentList": {
+      "appointment": {
+        "id": "APT-20241010-00001",
+        "statusCode": "active",
+        "effectiveTime": "20241010090000",
+        "patient": {
+          "id": "110101199001011234",
+          "name": "张三"
+        },
+        "service": {
+          "code": "普通门诊",
+          "provider": "北京协和医院 心内科 王医生"
+        },
+        "slot": {
+          "startTime": "20241010090000",
+          "endTime": "20241010093000"
+        }
+      }
+    }
+  }
+}

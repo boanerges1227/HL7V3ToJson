@@ -1,0 +1,27 @@
+{
+  "part10": {
+    "interactions": [
+      "MCCI_IN000002UV01",
+      "PRPA_IN410001UV",
+      "PRPA_IN410002UV",
+      "PRPA_IN900300UV",
+      "PRPA_IN900350UV",
+      "QUMT_IN020030UV01",
+      "QUMT_IN020040UV01"
+    ],
+    "sections": {},
+    "xml_count": 20
+  },
+  "part11": {
+    "interactions": [
+      "MCCI_IN000002UV01",
+      "POLB_IN224000UV01",
+      "POOR_IN200901UV",
+      "POOR_IN200902UV",
+      "QUMT_IN020030UV01",
+      "QUMT_IN020040UV01"
+    ],
+    "sections": {},
+    "xml_count": 31
+  }
+}
