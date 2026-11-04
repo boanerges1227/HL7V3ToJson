@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Java
+*.class
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+.vscode/

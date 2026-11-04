@@ -1,14 +1,35 @@
-# V7项目文档 - 医院信息平台交互标准
+# HL7V3ToJson - 医院信息平台交互标准 (V3)
 
-基于 **WS/T 846-2024** 国家卫生行业标准，实现医院信息平台各系统间数据交互的JSON格式规范。
+基于 **WS/T 846-2024** 国家卫生行业标准，将 HL7 V3 消息从 XML 格式转换为更简洁、易用的 JSON 格式，方便医院信息平台各系统间对接和接口测试。
+
+---
+
+## 目录
+
+- [项目概述](#项目概述)
+- [前置依赖](#前置依赖)
+- [目录结构](#目录结构)
+- [文件统计](#文件统计)
+- [消息类型汇总](#消息类型汇总)
+- [通用字段说明](#通用字段说明)
+- [OID标识符对照表](#oid标识符对照表)
+- [使用说明](#使用说明)
+- [版本信息](#版本信息)
 
 ---
 
 ## 项目概述
 
-本项目将《医院信息平台交互标准》PDF文档中的XML消息格式转换为更简洁、易用的JSON格式，方便系统对接和接口测试。
+本项目将《医院信息平台交互标准》（WS/T 846-2024）系列 PDF 文档中定义的 XML 消息格式，转换为结构化的 JSON 格式，包含以下两类数据：
+
+- **json-examples/**：带有字段注释的 JSON 示例，用于理解和学习消息结构
+- **json-demo/**：纯净测试数据，可直接用于接口开发和自动化测试
+
+同时提供 Java 版的 JSON/XML 互转工具和 Python 数据生成脚本。
 
 ### 标准文档
+
+> **说明**：WS/T 846 系列标准共 11 个部分，其中第 1 部分为总则，第 9 部分（费用信息交互服务）尚未发布，本项目覆盖其余 9 个部分。
 
 | 部分 | 标准编号 | 名称 | 页数 |
 |------|---------|------|------|
@@ -24,16 +45,55 @@
 
 ---
 
+## 前置依赖
+
+### JSON 数据使用
+
+无依赖，直接使用任意 HTTP 客户端或编程语言解析 JSON 文件即可。
+
+### Java 转换器
+
+| 依赖 | 版本要求 | 说明 |
+|------|---------|------|
+| JDK | 11+ | 编译和运行 Java 程序 |
+| org.json | 20231013+ | JSON 解析库（仅 `HospitalXmlJsonConverter` 需要） |
+
+> `HospitalConverter` 和 `SimpleConverter` 无需第三方依赖，仅使用 JDK 内置库。
+
+```bash
+# 下载 org.json 依赖（仅编译 HospitalXmlJsonConverter 时需要）
+curl -L -o json.jar 'https://repo1.maven.org/maven2/org/json/json/20231013/json-20231013.jar'
+
+# 编译全部类
+javac -cp json.jar -d out/ src/main/java/com/hospital/converter/*.java
+
+# 运行
+java -cp out:json.jar com.hospital.converter.HospitalXmlJsonConverter json2xml input.json output.xml
+```
+
+### Python 脚本
+
+| 依赖 | 版本要求 | 说明 |
+|------|---------|------|
+| Python | 3.8+ | 运行数据生成脚本 |
+
+```bash
+python3 scripts/generate_test_data.py
+```
+
+---
+
 ## 目录结构
 
 ```
-trunk-doc/
-├── README.md                              # 项目说明（本文件）
+HL7V3ToJson/
+├── README.md                              # 项目说明（中文）
+├── README_EN.md                           # 项目说明（英文）
 │
 ├── json-examples/                         # JSON示例文件（含字段说明）
 │   ├── README.md                          # 目录说明
 │   ├── 字段说明.md                        # 完整字段说明文档
-│   ├── 第2部分_个人信息/                   # 个人信息服务
+│   ├── 第2部分_个人信息/                   # 个人信息服务 (10个文件)
 │   │   ├── 注册请求.json
 │   │   ├── 注册应答成功.json
 │   │   ├── 注册应答异常.json
@@ -44,7 +104,7 @@ trunk-doc/
 │   │   ├── 合并请求.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   ├── 第3部分_医疗机构/                   # 医疗机构服务
+│   ├── 第3部分_医疗机构/                   # 医疗机构服务 (8个文件)
 │   │   ├── 注册请求.json
 │   │   ├── 更新请求.json
 │   │   ├── 查询请求.json
@@ -53,7 +113,7 @@ trunk-doc/
 │   │   ├── 字段说明.json
 │   │   ├── 字段说明.md
 │   │   └── schema.json
-│   ├── 第4部分_医护人员/                   # 医护人员服务
+│   ├── 第4部分_医护人员/                   # 医护人员服务 (7个文件)
 │   │   ├── 注册请求.json
 │   │   ├── 更新请求.json
 │   │   ├── 查询请求.json
@@ -61,7 +121,7 @@ trunk-doc/
 │   │   ├── 通用应答.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   ├── 第5部分_术语/                       # 术语服务
+│   ├── 第5部分_术语/                       # 术语服务 (7个文件)
 │   │   ├── 注册请求.json
 │   │   ├── 更新请求.json
 │   │   ├── 查询请求.json
@@ -69,21 +129,37 @@ trunk-doc/
 │   │   ├── 通用应答.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   ├── 第6部分_文档/                       # 文档服务
+│   ├── 第6部分_文档/                       # 文档服务 (6个文件)
 │   │   ├── 注册请求.json
 │   │   ├── 查询请求.json
 │   │   ├── 查询应答.json
 │   │   ├── 通用应答.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   ├── 第7部分_就诊信息/                   # 就诊信息服务
-│   │   ├── 就诊卡*.json
-│   │   ├── 门诊挂号*.json
-│   │   ├── 住院*.json
-│   │   ├── 出院*.json
+│   ├── 第7部分_就诊信息/                   # 就诊信息服务 (22个文件)
+│   │   ├── 就诊卡新增请求.json
+│   │   ├── 就诊卡更新请求.json
+│   │   ├── 就诊卡查询请求.json
+│   │   ├── 就诊卡查询应答.json
+│   │   ├── 门诊挂号新增请求.json
+│   │   ├── 门诊挂号更新请求.json
+│   │   ├── 门诊挂号查询请求.json
+│   │   ├── 门诊挂号查询应答.json
+│   │   ├── 住院登记请求.json
+│   │   ├── 住院更新请求.json
+│   │   ├── 住院查询请求.json
+│   │   ├── 住院查询应答.json
+│   │   ├── 住院转科新增请求.json
+│   │   ├── 住院转科更新请求.json
+│   │   ├── 住院转科查询请求.json
+│   │   ├── 住院转科查询应答.json
+│   │   ├── 出院登记新增请求.json
+│   │   ├── 出院登记更新请求.json
+│   │   ├── 出院信息查询请求.json
+│   │   ├── 出院信息查询应答.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   ├── 第8部分_医嘱/                       # 医嘱服务
+│   ├── 第8部分_医嘱/                       # 医嘱服务 (7个文件)
 │   │   ├── 开立请求.json
 │   │   ├── 查询请求.json
 │   │   ├── 查询应答.json
@@ -91,7 +167,7 @@ trunk-doc/
 │   │   ├── 字段说明.json
 │   │   ├── 字段说明.md
 │   │   └── schema.json
-│   ├── 第10部分_预约/                      # 预约服务
+│   ├── 第10部分_预约/                      # 预约服务 (8个文件)
 │   │   ├── 申请请求.json
 │   │   ├── 申请应答.json
 │   │   ├── 取消请求.json
@@ -100,7 +176,7 @@ trunk-doc/
 │   │   ├── 查询应答.json
 │   │   ├── 字段说明.json
 │   │   └── 字段说明.md
-│   └── 第11部分_状态/                      # 状态服务
+│   └── 第11部分_状态/                      # 状态服务 (6个文件)
 │       ├── 更新请求.json
 │       ├── 更新应答.json
 │       ├── 查询请求.json
@@ -125,15 +201,19 @@ trunk-doc/
 │   ├── README.md
 │   ├── converter.sh
 │   └── src/main/java/com/hospital/converter/
-│       ├── HospitalConverter.java
-│       └── SimpleConverter.java
+│       ├── HospitalConverter.java         # 基础转换器（无外部依赖）
+│       ├── SimpleConverter.java           # 简化转换器
+│       └── HospitalXmlJsonConverter.java  # 完整转换器（需 org.json）
 │
-├── scripts/                               # 工具脚本
-│   ├── xml_to_json.py
-│   ├── generate_test_data.py
-│   └── fill_values.py
-│
-└── *.pdf                                  # 原始标准文档
+└── scripts/                               # 工具脚本
+    ├── xml_to_json.py                     # XML转JSON脚本
+    ├── generate_test_data.py              # 测试数据生成器
+    ├── fill_values.py                     # 字段填充工具
+    ├── generate_comprehensive_json.py     # 综合JSON生成器
+    ├── generate_part7_json.py             # 第7部分专用生成器
+    ├── extract_and_generate.py            # PDF提取与生成
+    ├── analyze_pdfs.py                    # PDF分析工具
+    └── add_sample_values.py               # 示例值填充
 ```
 
 ---
@@ -245,14 +325,14 @@ trunk-doc/
 | id.extension | string | 是 | 消息流水号 |
 | creationTime | datetime | 是 | 格式：yyyyMMddHHmmss |
 | interactionId.extension | string | 是 | 服务标识代码 |
-| processingCode | string | 是 | D-调试/P-产品/T-训练 |
-| acceptAckCode | string | 是 | AL-总是/ER-仅错误/NE-从不 |
+| processingCode | string | 是 | D-调试 / P-产品 / T-训练 |
+| acceptAckCode | string | 是 | AL-总是 / ER-仅错误 / NE-从不 |
 
 ### 应答消息 (acknowledgement)
 
 | 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| typeCode | string | 是 | AA-成功/AE-失败/AR-拒绝 |
+| typeCode | string | 是 | AA-成功 / AE-失败 / AR-拒绝 |
 | targetMessage.id.extension | string | 是 | 请求消息流水号 |
 | acknowledgementDetail.text | string | 是 | 处理结果说明 |
 
@@ -269,7 +349,7 @@ trunk-doc/
 | 2.16.156.10011.1.3 | 身份证件号码 |
 | 2.16.156.10011.1.4 | 医护人员工号 |
 | 2.16.156.10011.1.5 | 医院编码 |
-| 2.16.156.10011.1.10 | 门（急）诊号 |
+| 2.16.156.10011.1.10 | 门(急)诊号 |
 | 2.16.156.10011.1.12 | 住院号 |
 | 2.16.156.10011.1.19 | 居民健康卡号 |
 | 2.16.156.10011.1.26 | 科室编码 |
@@ -304,7 +384,7 @@ curl -X POST http://your-api/order/create \
 ```bash
 cd java-converter/src/main/java
 
-# 编译
+# 编译（无需第三方依赖）
 javac com/hospital/converter/HospitalConverter.java
 
 # JSON转XML
@@ -314,8 +394,12 @@ java com.hospital.converter.HospitalConverter json2xml input.json output.xml
 java com.hospital.converter.HospitalConverter xml2json input.xml output.json
 ```
 
----
+### 4. 使用Python脚本
 
+```bash
+# 生成测试数据
+python3 scripts/generate_test_data.py
+```
 
 ---
 
